@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import "../css/WelcomeScreen.css";
 import { useDispatch } from "react-redux";
 import { loginAsGuest } from "../features/auth/userSlice";
+import GradientBlob from "../components/GradientBlob";
 
 const buttonStyle = {
   padding: "1rem 2rem",
@@ -24,7 +25,7 @@ const containerStyle = {
   justifyContent: "center",
   alignItems: "center",
   minHeight: "100vh",
-  backgroundImage: `linear-gradient(#ee9b97, #fdd58f)`,
+  // backgroundImage: `linear-gradient(#f1afab, #fdd58f)`,
   backgroundSize: "cover",
   backgroundPosition: "center",
 };
@@ -33,6 +34,7 @@ function WelcomeScreen() {
 
   return (
     <>
+    <GradientBlob/>
       <Box sx={containerStyle}>
         <Typography mb={10} variant="h2">
           Take a break.

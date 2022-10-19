@@ -12,7 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Icon } from "@mui/material";
 import Logo from "./Logo";
-import Waves from "./WavesBG";
+import Waves from "./GradientWaves";
 
 const pages = ["Meditate", "Favorites", "Info"];
 const settings = ["Profile", "Logout"];

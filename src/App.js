@@ -1,6 +1,6 @@
 import React from "react";
 import "./css/App.css";
-import Waves from "./components/WavesBG";
+import Waves from "./components/GradientWaves";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider, styled } from "@mui/material/styles";
 import MeditateScreen from "./screens/MeditateScreen";

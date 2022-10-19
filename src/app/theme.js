@@ -12,7 +12,17 @@ let theme = createTheme({
       contrastText:"#fff"
 
     },
+    third:{
+      main:"#fdd58f"
+    }
   },
+  components: {
+    MuiCard: {
+      styleOverrides:{
+        root:{backgroundColor:"#ffece1"}
+      }
+    }
+  }
 });
 
 theme = responsiveFontSizes(theme);
