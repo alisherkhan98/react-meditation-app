@@ -19,8 +19,11 @@ let theme = createTheme({
   components: {
     MuiCard: {
       styleOverrides:{
-        root:{backgroundColor:"#ffece1"}
-      }
+        root:{backgroundColor:"#ffece1", borderRadius: 10 }
+      },
+      defaultProps: {
+        elevation:0
+      },
     }
   }
 });

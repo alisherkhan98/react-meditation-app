@@ -10,9 +10,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { Icon } from "@mui/material";
-import Logo from "./Logo";
-import Waves from "./GradientWaves";
+import { GiLotus } from "react-icons/gi";
 
 const pages = ["Meditate", "Favorites", "Info"];
 const settings = ["Profile", "Logout"];
@@ -32,25 +30,13 @@ function DesktopNav() {
     <>
       <AppBar
         position="absolute"
-        sx={{ backgroundColor: "transparent"}}
+        sx={{ backgroundColor: "transparent" }}
         elevation={0}
-
       >
-        {/* <Waves/> */}
-        <Container
-          maxWidth="xl"
-          
-        >
+        <Container maxWidth="lg">
           <Toolbar disableGutters>
-            <Icon
-              sx={{
-                display: { xs: "none", sm: "flex" },
-                alignItems: "center",
-                mr: 1,
-              }}
-            >
-              <Logo />
-            </Icon>
+            <GiLotus size="30px" style={{ marginRight: ".5rem" }} />
+
             <Typography
               variant="h6"
               noWrap

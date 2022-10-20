@@ -5,7 +5,7 @@ function Waves() {
   <svg
     xmlns="http://www.w3.org/2000/svg"
     style={{
-      position: "absolute",
+      position: "fixed",
       top:0,
       left:0,
       zIndex: "-10",

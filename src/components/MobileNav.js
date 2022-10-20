@@ -1,12 +1,13 @@
 import React from "react";
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import Paper from "@mui/material/Paper";
-import Logo from "./Logo";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MobileDrawer from "./MobileDrawer";
 import { useDispatch } from "react-redux";
-import { openMobileDrawer } from "../features/drawers/drawerSlice";
+import { openMobileDrawer } from "../features/drawers/drawerSlice"
+import {GiLotus} from "react-icons/gi"
+import {MdOutlineFavoriteBorder} from "react-icons/md"
+
 
 function MobileNav() {
   const [value, setValue] = React.useState(0);
@@ -20,7 +21,7 @@ function MobileNav() {
       >
         <BottomNavigation
           sx={{
-            "& .MuiBottomNavigationAction-root, .Mui-selected, svg": {
+            "& .Mui-selected, .Mui-selected svg": {
               color: "secondary.main"
             }
          }}
@@ -32,8 +33,8 @@ function MobileNav() {
             setValue(newValue);
           }}
         >
-          <BottomNavigationAction label="Meditate" icon={<Logo />} />
-          <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+          <BottomNavigationAction label="Meditate" icon={<GiLotus size="24px" />} />
+          <BottomNavigationAction label="Favorites" icon={<MdOutlineFavoriteBorder size="24px"/>} />
           <BottomNavigationAction
             onClick={() => dispatch(openMobileDrawer())}
             label="Settings"

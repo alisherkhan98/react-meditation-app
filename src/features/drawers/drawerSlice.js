@@ -5,19 +5,17 @@ const initialState = {
     mobileDrawerOpen: false,
 }
 
-export const userSlice = createSlice({
+export const drawerSlice = createSlice({
     name: "drawers",
     initialState,
     reducers: {
         openMobileDrawer: (state) => {
             state.mobileDrawerOpen = true
         },
-        closeMobileDrawer: (state) => {
-            state.mobileDrawerOpen = false
-        },
+     
     },
   });
 
 
-  export const {openMobileDrawer, closeMobileDrawer} = userSlice.actions
-  export default userSlice.reducer
+  export const {openMobileDrawer, closeMobileDrawer} = drawerSlice.actions
+  export default drawerSlice.reducer
