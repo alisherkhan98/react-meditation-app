@@ -1,32 +1,32 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
+import {Drawer, useMediaQuery} from "@mui/material";
 import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar, IconButton, Typography } from "@mui/material";
 import { useTheme } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { closeMobileDrawer } from "../features/drawers/drawerSlice";
+import { closePlayer } from "../features/modals/modalsSlice";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import InfoIcon from "@mui/icons-material/Info";
 
-function MobileDrawer() {
+const drawerWidth = "400px";
+function PlayerDrawer() {
+  const matches = useMediaQuery('(min-width:600px)')
+
   const theme = useTheme();
+
   const dispatch = useDispatch();
-  const { mobileDrawerOpen } = useSelector((state) => state.drawers);
+
+  const { playerOpen } = useSelector((state) => state.modals);
   const { user } = useSelector((state) => state.user);
 
   const list = () => (
-    <Box sx={{ backgroundColor: theme.palette.primary.main }}>
+    <>
       <IconButton
         sx={{
           position: "absolute",
@@ -38,13 +38,12 @@ function MobileDrawer() {
           height: 50,
         }}
         size="large"
-        onClick={() => dispatch(closeMobileDrawer())}
+        onClick={() => dispatch(closePlayer())}
       >
         <CloseIcon fontSize="large" />
       </IconButton>
       <List
         sx={{
-          width: "100vw",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -65,7 +64,7 @@ function MobileDrawer() {
           src="/static/images/avatar/2.jpg"
         />
         <Typography mb={6} variant="h5">
-          Hi, {user.name}
+          tis is player
         </Typography>
         {["Profile", "Info", "Sign Out"].map((text) => (
           <ListItem key={text}>
@@ -75,7 +74,7 @@ function MobileDrawer() {
                 justifyContent: "center",
                 backgroundColor: theme.palette.primary.light,
                 padding: 3,
-                m:1,
+                m: 1,
                 borderRadius: "10px",
               }}
             >
@@ -100,13 +99,29 @@ function MobileDrawer() {
           </ListItem>
         ))}
       </List>
-    </Box>
+      </>
   );
   return (
-    <Drawer color="primary" anchor="right" open={mobileDrawerOpen}>
+    <Drawer
+    
+      sx={{
+        width: "100vw",
+
+        
+        flexShrink: 0,
+        "& .MuiDrawer-paper": {
+        width: "100vw",
+          boxSizing: "border-box",
+          backgroundColor:"primary.main"
+        },
+      }}
+      color="primary"
+      anchor="right"
+      open={!matches && playerOpen}
+    >
       {list()}
     </Drawer>
   );
 }
 
-export default MobileDrawer;
+export default PlayerDrawer;

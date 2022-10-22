@@ -1,23 +1,57 @@
 import React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
+
+// MUI
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem,
+} from "@mui/material";
+
+// Icons
 import { GiLotus } from "react-icons/gi";
 
-const pages = ["Meditate", "Favorites", "Info"];
-const settings = ["Profile", "Logout"];
+// Router
+import { useNavigate } from "react-router-dom";
 
 function DesktopNav() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate();
+  // Nav links
+  const pages = [
+    {
+      name: "Meditate",
+      handleClick: () => navigate("/"),
+    },
+    {
+      name: "Favorites",
+      handleClick: () => navigate("/favorites"),
+    },
+    {
+      name: "Info",
+      handleClick: () => navigate("/"),
+    },
+  ];
+  // User Menu Links
+  const settings = [
+    {
+      name: "Profile",
+      handleClick: () => navigate("/profile"),
+    },
+    {
+      name: "Logout",
+      handleClick: () => {},
+    },
+  ];
 
+  // User Menu handlers
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -27,86 +61,91 @@ function DesktopNav() {
   };
 
   return (
-    <>
-      <AppBar
-        position="absolute"
-        sx={{ backgroundColor: "transparent" }}
-        elevation={0}
-      >
-        <Container maxWidth="lg">
-          <Toolbar disableGutters>
-            <GiLotus size="30px" style={{ marginRight: ".5rem" }} />
-
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: "none", sm: "flex" },
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
+    <AppBar
+      position="absolute"
+      sx={{ backgroundColor: "transparent" }}
+      elevation={0}
+    >
+      <Container maxWidth="lg">
+        <Toolbar disableGutters>
+          {/* Logo */}
+          <GiLotus size="30px" style={{ marginRight: ".5rem" }} />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: "none", sm: "flex" },
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            LOGO
+          </Typography>
+          {/* Nav Links mapped */}
+          <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" }, ml: 2 }}>
+            {pages.map((page) => (
+              <Button
+                key={page.name}
+                sx={{
+                  my: 2,
+                  mr: 2,
+                  color: "white",
+                  fontWeight: 700,
+                  display: "block",
+                }}
+                onClick={page.handleClick}
+              >
+                {page.name}
+              </Button>
+            ))}
+          </Box>
+          {/* Avatar icon */}
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Sharp" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              disableScrollLock={true}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
               }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
             >
-              LOGO
-            </Typography>
-
-            <Box
-              sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" }, ml: 2 }}
-            >
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  sx={{
-                    my: 2,
-                    mr: 2,
-                    color: "white",
-                    fontWeight: 700,
-                    display: "block",
+              {/* User menu mapped */}
+              {settings.map((setting) => (
+                <MenuItem
+                  key={setting.name}
+                  onClick={() => {
+                    handleCloseUserMenu();
+                    setting.handleClick();
                   }}
                 >
-                  {page}
-                </Button>
+                  <Typography textAlign="center">{setting.name}</Typography>
+                </MenuItem>
               ))}
-            </Box>
-
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </>
+            </Menu>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 }
 export default DesktopNav;

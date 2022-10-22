@@ -4,10 +4,16 @@ function GradientBlob() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      
       viewBox="0 0 1000 1000"
-      style={{position:"absolute", zIndex:"-10", width:"max(80vw,80vh)", left:"50%", top:"50%", transform:"translate(-50%,-50%)"}}
-
+      style={{
+        position: "absolute",
+        zIndex: "-10",
+        height: "100%",
+        width: "auto",
+        left: "50%",
+        top: "50%",
+        transform: "translate(-50%,-50%)",
+      }}
     >
       <defs>
         <linearGradient

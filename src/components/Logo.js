@@ -1,15 +1,22 @@
-import React from 'react'
-import { SvgIcon } from '@mui/material';
-function Logo() {
-    return (
-        
-<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
- width="24px" height="24px" viewBox="0 0 225.000000 225.000000"
- preserveAspectRatio="xMidYMid meet">
+import React from "react";
 
-<g transform="translate(0.000000,225.000000) scale(0.100000,-0.100000)"
-fill="currentColor" stroke="none">
-<path d="M1097 2236 c-80 -30 -116 -91 -117 -198 0 -39 -4 -68 -10 -68 -5 0
+function Logo() {
+  return (
+    <svg
+      version="1.0"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24px"
+      height="24px"
+      viewBox="0 0 225.000000 225.000000"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <g
+        transform="translate(0.000000,225.000000) scale(0.100000,-0.100000)"
+        fill="currentColor"
+        stroke="none"
+      >
+        <path
+          d="M1097 2236 c-80 -30 -116 -91 -117 -198 0 -39 -4 -68 -10 -68 -5 0
 -10 -9 -10 -21 0 -31 30 -129 40 -129 4 0 11 -20 14 -45 4 -24 11 -47 17 -50
 17 -11 10 -84 -10 -104 -28 -28 -104 -71 -205 -116 -136 -60 -156 -100 -162
 -320 -5 -171 -22 -352 -36 -390 -13 -33 -215 -273 -273 -324 -40 -35 -34 -34
@@ -31,12 +38,11 @@ l-26 31 72 13 c79 13 98 27 98 71 0 35 -13 36 -28 3 -7 -16 -20 -25 -33 -25
 -212 c33 -32 108 -85 165 -119 58 -34 105 -63 105 -65 0 -5 -22 -1 -172 37
 -181 45 -161 25 -186 190 -27 179 -27 195 3 94 22 -73 29 -85 85 -137z m520
 -115 c0 -19 -3 -24 -10 -17 -6 6 -8 18 -4 27 9 24 14 21 14 -10z m-1995 -54
-c10 -15 -4 -64 -15 -53 -5 5 -12 21 -15 37 -6 21 -4 27 8 27 9 0 19 -5 22 -11z"/>
-</g>
-</svg>
-
-    
-      );
+c10 -15 -4 -64 -15 -53 -5 5 -12 21 -15 37 -6 21 -4 27 8 27 9 0 19 -5 22 -11z"
+        />
+      </g>
+    </svg>
+  );
 }
 
-export default Logo
+export default Logo;
