@@ -24,7 +24,6 @@ import Timer from "./Timer";
 import { Timeit } from "react-timeit";
 import Waves from "./GradientWaves";
 
-const drawerWidth = "400px";
 function PlayerDrawer() {
   const matches = useMediaQuery("(min-width:600px)");
 
@@ -32,20 +31,31 @@ function PlayerDrawer() {
 
   const dispatch = useDispatch();
 
-  const [time, setTime] = React.useState();
-  const [isPlaying, setIsPlaying] = React.useState(false);
-
   const { playerOpen } = useSelector((state) => state.modals);
-  console.log(time);
+  // selecting current program
   let { currentProgram } = useSelector((state) => state.programs);
   currentProgram = programs.find((program) => program.name === currentProgram);
 
+  // defining states
+  const [pickedTime, setPickedTime] = React.useState(0);
+  const [isPlaying, setIsPlaying] = React.useState(false);
+  const [isStarted, setIsStarted] = React.useState(false);
+  const [reset, setReset] = React.useState(false);
+
   function handleChange(value) {
+    console.log(value);
+    if (value == "00:00") {
+      return;
+    }
     const timeArray = value.split(":");
-    const seconds = timeArray[0] * 60 + +timeArray[1];
-    console.log(seconds);
-    setTime(seconds);
+    const seconds = +timeArray[0] * 60 + +timeArray[1];
+    setPickedTime(seconds);
   }
+  React.useEffect(() => {
+    setIsPlaying(false);
+    setPickedTime(0)
+  }, [currentProgram, reset]);
+
   return (
     <Drawer
       sx={{
@@ -70,14 +80,14 @@ function PlayerDrawer() {
             minHeight: "100vh",
             alignItems: "center",
             mb: 2,
-            pt: "10vh",
+            pt: "15vh",
             px: 3,
             boxSizing: "border-box",
             m: 0,
           },
         ]}
       >
-        <Waves height="50vh" />
+        <Waves height="100vh" />
         {/* button to close player */}
         <IconButton
           sx={{
@@ -95,25 +105,59 @@ function PlayerDrawer() {
           <CloseIcon fontSize="large" />
         </IconButton>
         <Timer
-          duration={time}
+          duration={pickedTime}
           color={theme.palette.secondary.main}
           isPlaying={isPlaying}
+          key={reset}
         />
-        {!isPlaying && (
+
+        {!isStarted && (
           <Box sx={{ mt: 5 }}>
             <Timeit onChange={handleChange} />
           </Box>
         )}
-        <Button
-          variant="contained"
-          color="secondary"
-          sx={{ mt: 3 }}
-          onClick={() => {
-            setIsPlaying(!isPlaying);
-          }}
-        >
-          <Typography variant="h4">{isPlaying ? "Stop" : "Start"}</Typography>
-        </Button>
+
+        {isStarted ? (
+          <>
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{ mt: "5vh" }}
+              onClick={() => {
+                setIsPlaying(!isPlaying);
+              }}
+            >
+              <Typography variant="h4">
+                {isPlaying ? "Pause" : "Play"}
+              </Typography>
+            </Button>
+
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{ mt: "5vh" }}
+              onClick={() => {
+                setIsPlaying(false);
+                setIsStarted(!isStarted);
+                setReset(!reset);
+              }}
+            >
+              <Typography variant="h4">Reset</Typography>
+            </Button>
+          </>
+        ) : (
+          <Button
+            variant="contained"
+            color="secondary"
+            sx={{ mt: "5vh" }}
+            onClick={() => {
+              setIsPlaying(true);
+              setIsStarted(!isStarted);
+            }}
+          >
+            <Typography variant="h4">Start Program</Typography>
+          </Button>
+        )}
       </Box>
     </Drawer>
   );

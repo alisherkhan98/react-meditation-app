@@ -16,7 +16,6 @@ export default function Timer({ duration, color, isPlaying }) {
     if (seconds < 10) {
       seconds = "0" + seconds;
     }
-
     return (
 
       <div className="timer">

@@ -11,6 +11,7 @@ import { programs } from "../app/data";
 import Waves from "../components/GradientWaves";
 import Cards from "../components/Cards";
 import PlayerDrawer from "../components/PlayerDrawer";
+import PlayerModal from "../components/PlayerModal";
 
 function FavoriteScreen() {
   const favoriteNames = useSelector((state) => state.programs.favorites);
@@ -60,6 +61,7 @@ function FavoriteScreen() {
       </Box>
 
       <PlayerDrawer />
+      <PlayerModal/>
     </>
   );
 }
