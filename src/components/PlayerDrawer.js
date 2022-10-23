@@ -1,125 +1,120 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import {Drawer, useMediaQuery} from "@mui/material";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
+
+// MUI
+import {
+  Drawer,
+  useMediaQuery,
+  IconButton,
+  useTheme,
+  Typography,
+  Box,
+  Button,
+} from "@mui/material";
+
+// Redux
 import { useDispatch, useSelector } from "react-redux";
-import { Avatar, IconButton, Typography } from "@mui/material";
-import { useTheme } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import { closePlayer } from "../features/modals/modalsSlice";
-import LogoutIcon from "@mui/icons-material/Logout";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import InfoIcon from "@mui/icons-material/Info";
+
+// Icons
+import CloseIcon from "@mui/icons-material/Close";
+
+// My imports
+import { programs } from "../app/data";
+import Timer from "./Timer";
+import { Timeit } from "react-timeit";
+import Waves from "./GradientWaves";
 
 const drawerWidth = "400px";
 function PlayerDrawer() {
-  const matches = useMediaQuery('(min-width:600px)')
+  const matches = useMediaQuery("(min-width:600px)");
 
   const theme = useTheme();
 
   const dispatch = useDispatch();
 
-  const { playerOpen } = useSelector((state) => state.modals);
-  const { user } = useSelector((state) => state.user);
+  const [time, setTime] = React.useState();
+  const [isPlaying, setIsPlaying] = React.useState(false);
 
-  const list = () => (
-    <>
-      <IconButton
-        sx={{
-          position: "absolute",
-          top: 20,
-          left: 20,
-          zIndex: 10,
-          color: theme.palette.secondary.main,
-          width: 50,
-          height: 50,
-        }}
-        size="large"
-        onClick={() => dispatch(closePlayer())}
-      >
-        <CloseIcon fontSize="large" />
-      </IconButton>
-      <List
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          minHeight: "100vh",
-          alignItems: "center",
-          mb: 2,
-        }}
-      >
-        <Avatar
-          sx={{
-            width: 100,
-            height: 100,
-            fontSize: 40,
-            mb: 2,
-            backgroundColor: theme.palette.secondary.light,
-          }}
-          alt="Ali"
-          src="/static/images/avatar/2.jpg"
-        />
-        <Typography mb={6} variant="h5">
-          tis is player
-        </Typography>
-        {["Profile", "Info", "Sign Out"].map((text) => (
-          <ListItem key={text}>
-            <ListItemButton
-              disableRipple
-              sx={{
-                justifyContent: "center",
-                backgroundColor: theme.palette.primary.light,
-                padding: 3,
-                m: 1,
-                borderRadius: "10px",
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  justifyContent: "center",
-                  color: theme.palette.secondary.main,
-                }}
-              >
-                {text === "Profile" ? (
-                  <AccountBoxIcon />
-                ) : text === "Info" ? (
-                  <InfoIcon />
-                ) : (
-                  <LogoutIcon />
-                )}
-              </ListItemIcon>
-              <Typography variant="h4" sx={{ paddingRight: "24px" }}>
-                {text}
-              </Typography>
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      </>
-  );
+  const { playerOpen } = useSelector((state) => state.modals);
+  console.log(time);
+  let { currentProgram } = useSelector((state) => state.programs);
+  currentProgram = programs.find((program) => program.name === currentProgram);
+
+  function handleChange(value) {
+    const timeArray = value.split(":");
+    const seconds = timeArray[0] * 60 + +timeArray[1];
+    console.log(seconds);
+    setTime(seconds);
+  }
   return (
     <Drawer
-    
       sx={{
         width: "100vw",
 
-        
         flexShrink: 0,
         "& .MuiDrawer-paper": {
-        width: "100vw",
+          width: "100vw",
           boxSizing: "border-box",
-          backgroundColor:"primary.main"
         },
       }}
       color="primary"
       anchor="right"
       open={!matches && playerOpen}
     >
-      {list()}
+      <Box
+        sx={[
+          {
+            width: "100vw",
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
+            alignItems: "center",
+            mb: 2,
+            pt: "10vh",
+            px: 3,
+            boxSizing: "border-box",
+            m: 0,
+          },
+        ]}
+      >
+        <Waves height="50vh" />
+        {/* button to close player */}
+        <IconButton
+          sx={{
+            position: "absolute",
+            top: 20,
+            left: 20,
+            zIndex: 10,
+            color: theme.palette.secondary.main,
+            width: 50,
+            height: 50,
+          }}
+          size="large"
+          onClick={() => dispatch(closePlayer())}
+        >
+          <CloseIcon fontSize="large" />
+        </IconButton>
+        <Timer
+          duration={time}
+          color={theme.palette.secondary.main}
+          isPlaying={isPlaying}
+        />
+        {!isPlaying && (
+          <Box sx={{ mt: 5 }}>
+            <Timeit onChange={handleChange} />
+          </Box>
+        )}
+        <Button
+          variant="contained"
+          color="secondary"
+          sx={{ mt: 3 }}
+          onClick={() => {
+            setIsPlaying(!isPlaying);
+          }}
+        >
+          <Typography variant="h4">{isPlaying ? "Stop" : "Start"}</Typography>
+        </Button>
+      </Box>
     </Drawer>
   );
 }

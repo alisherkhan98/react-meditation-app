@@ -41,7 +41,7 @@ function SettingsDrawer() {
   ];
 
   const list = () => (
-    <Box sx={{}}>
+    <Box>
       <Waves height="25vh" />
       <IconButton
         sx={{

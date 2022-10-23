@@ -6,15 +6,16 @@ import { MdOutlineFavoriteBorder, MdFavorite } from "react-icons/md";
 // MUI
 import { CardContent, Typography, useTheme, Grid, Card } from "@mui/material";
 
-// Redux 
+// Redux
 import { useDispatch, useSelector } from "react-redux";
-import { toggleFavorites } from "../features/programs/programsSlice";
+import {
+  toggleFavorites,
+  setCurrentProgram,
+} from "../features/programs/programsSlice";
 import { openPlayer } from "../features/modals/modalsSlice";
-
 
 function Cards({ programs }) {
   const dispatch = useDispatch();
-
 
   const theme = useTheme();
 
@@ -62,7 +63,10 @@ function Cards({ programs }) {
                 },
                 { "&:hover": { boxShadow: "0 0 20px rgba(0,0,0,0.2)" } },
               ]}
-              onClick={() => dispatch(openPlayer())}
+              onClick={() => {
+                dispatch(setCurrentProgram(program.name));
+                dispatch(openPlayer());
+              }}
             >
               {favorites.includes(program.name) ? (
                 <MdFavorite

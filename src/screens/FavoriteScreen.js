@@ -25,7 +25,7 @@ function FavoriteScreen() {
 
       {/* Main */}
       <Box
-        sx={{ py: { xs: "15%", sm: "10%" }, px: { xs: 3 }, minHeight: "100vh" }}
+        sx={{ py: { xs: "15%", sm: "10%" }, px:3, minHeight: "100vh" }}
       >
         <Container maxWidth="lg">
 

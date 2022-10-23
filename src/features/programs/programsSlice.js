@@ -17,8 +17,11 @@ export const programsSlice = createSlice({
         state.favorites.push(action.payload);
       }
     },
+    setCurrentProgram: (state, action) => {
+      state.currentProgram = action.payload
+    }
   },
 });
 
-export const { toggleFavorites } = programsSlice.actions;
+export const { toggleFavorites, setCurrentProgram } = programsSlice.actions;
 export default programsSlice.reducer;
