@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 import { programs } from "../app/data";
 import Waves from "../components/GradientWaves";
 import Cards from "../components/Cards";
-import PlayerDrawer from "../components/PlayerDrawer";
 import PlayerModal from "../components/PlayerModal";
 
 function FavoriteScreen() {

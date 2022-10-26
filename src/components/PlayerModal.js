@@ -30,7 +30,6 @@ import { BsFillPlayFill, BsPauseFill, BsStopFill } from "react-icons/bs";
 import { MdRefresh } from "react-icons/md";
 import { ImVolumeMedium } from "react-icons/im";
 
-import fire from "../assets/sounds/fireplace.mp3";
 // Modal Box styles
 const style = {
   position: "absolute",
@@ -279,7 +278,7 @@ export default function PlayerModal() {
                   color="secondary"
                   sx={buttonStyle}
                   onClick={() => {
-                    if (pickedTime == 0) return;
+                    if (pickedTime === 0) return;
                     setIsPlaying(true);
                     setIsStarted(!isStarted);
                     play();

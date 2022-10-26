@@ -50,6 +50,7 @@ function MobileNav() {
                 break;
               case 2:
                 dispatch(openSettingsDrawer());
+                break;
               default:
                 break;
             }
