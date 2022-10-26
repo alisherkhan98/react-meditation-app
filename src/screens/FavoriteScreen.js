@@ -60,7 +60,6 @@ function FavoriteScreen() {
         </Container>
       </Box>
 
-      <PlayerDrawer />
       <PlayerModal/>
     </>
   );

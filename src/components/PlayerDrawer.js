@@ -40,20 +40,19 @@ function PlayerDrawer() {
   const [pickedTime, setPickedTime] = React.useState(0);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [isStarted, setIsStarted] = React.useState(false);
-  const [reset, setReset] = React.useState(false);
+  const [reset, setReset] = React.useState();
 
+  console.log(pickedTime);
   function handleChange(value) {
-    console.log(value);
-    if (value == "00:00") {
-      return;
-    }
+    
     const timeArray = value.split(":");
     const seconds = +timeArray[0] * 60 + +timeArray[1];
     setPickedTime(seconds);
   }
   React.useEffect(() => {
     setIsPlaying(false);
-    setPickedTime(0)
+    setIsStarted(false);
+    setPickedTime(0);
   }, [currentProgram, reset]);
 
   return (
@@ -87,7 +86,7 @@ function PlayerDrawer() {
           },
         ]}
       >
-        <Waves height="100vh" />
+        <Waves height="20vh" />
         {/* button to close player */}
         <IconButton
           sx={{
@@ -112,22 +111,22 @@ function PlayerDrawer() {
         />
 
         {!isStarted && (
-          <Box sx={{ mt: 5 }}>
+          <Box sx={{ mt: 5, fontSize:"1rem" }}>
             <Timeit onChange={handleChange} />
           </Box>
         )}
 
         {isStarted ? (
-          <>
+          <Box sx={{ mt: 5, display: "flex", flexDirection: "column"}}>
             <Button
               variant="contained"
               color="secondary"
-              sx={{ mt: "5vh" }}
+              sx={{ mt: "5vh"  , py:"1rem", px:"2rem", borderRadius:"2rem", width:"80vw"}}
               onClick={() => {
                 setIsPlaying(!isPlaying);
               }}
             >
-              <Typography variant="h4">
+              <Typography variant="body" sx={{fontWeight:700}}>
                 {isPlaying ? "Pause" : "Play"}
               </Typography>
             </Button>
@@ -135,27 +134,27 @@ function PlayerDrawer() {
             <Button
               variant="contained"
               color="secondary"
-              sx={{ mt: "5vh" }}
+              sx={{ mt: "5vh" , py:"1rem", px:"2rem" , borderRadius:"2rem", width:"80vw"}}
               onClick={() => {
                 setIsPlaying(false);
                 setIsStarted(!isStarted);
                 setReset(!reset);
               }}
             >
-              <Typography variant="h4">Reset</Typography>
+              <Typography variant="body" sx={{fontWeight:700}}>Reset</Typography>
             </Button>
-          </>
+          </Box>
         ) : (
           <Button
             variant="contained"
             color="secondary"
-            sx={{ mt: "5vh" }}
+            sx={{ mt: "5vh" , py:"1rem", px:"2rem", borderRadius:"2rem", width:"80vw" }}
             onClick={() => {
               setIsPlaying(true);
               setIsStarted(!isStarted);
             }}
           >
-            <Typography variant="h4">Start Program</Typography>
+            <Typography variant="body" sx={{fontWeight:700}}>Start Program</Typography>
           </Button>
         )}
       </Box>

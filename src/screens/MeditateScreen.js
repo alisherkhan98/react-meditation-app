@@ -64,7 +64,6 @@ function MeditateScreen() {
           <Cards programs={programs} />
         </Container>
       </Box>
-      <PlayerDrawer />
       <PlayerModal />
     </>
   );
