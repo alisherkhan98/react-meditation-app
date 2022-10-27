@@ -33,22 +33,22 @@ import { ImVolumeMedium } from "react-icons/im";
 // Modal Box styles
 const style = {
   position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  top: { xs: 0, sm: "50%" },
+  left: { xs: 0, sm: "50%" },
+  transform: { sm: "translate(-50%, -50%)" },
   bgcolor: "primary.light",
-  p: 4,
+  // p: 4,
   width: { xs: "100vw", sm: "80vw" },
   display: "flex",
   flexDirection: { xs: "column", sm: "row" },
   justifyContent: "center",
   minHeight: { xs: "100vh", sm: "fit-content" },
   maxWidth: { sm: "600px" },
-  aspectRatio: "16/9",
+  aspectRatio: { sm: "16/9" },
   alignItems: "center",
   boxSizing: "border-box",
   borderRadius: { sm: 4 },
-  m: 0,
+  zIndex: 0,
   overflow: "hidden",
 };
 

@@ -8,7 +8,7 @@ function Waves({height}) {
         position: "fixed",
         top: 0,
         left: 0,
-        zIndex: "-100",
+        zIndex: "-1",
         width: "100%",
         height: height,
       }}
