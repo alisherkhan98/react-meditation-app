@@ -16,6 +16,7 @@ import WelcomeScreen from "./screens/WelcomeScreen";
 import MeditateScreen from "./screens/MeditateScreen";
 import FavoriteScreen from "./screens/FavoriteScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import ScrollToTop from "./components/ScrollToTop";
 
 // Component
 
@@ -27,6 +28,7 @@ function App() {
       {/* Show Welcome screen only if not logged in */}
       {user ? (
         <Router>
+          <ScrollToTop/>
           <Nav />
           <Routes>
             <Route path="/" element={<MeditateScreen />} />
