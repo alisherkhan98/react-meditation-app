@@ -21,6 +21,9 @@ import { GiLotus } from "react-icons/gi";
 // Router
 import { useNavigate } from "react-router-dom";
 
+// Firebase
+import { signOut } from "firebase/auth";
+import { auth } from "../app/firebaseConfig";
 function DesktopNav() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
@@ -47,7 +50,10 @@ function DesktopNav() {
     },
     {
       name: "Logout",
-      handleClick: () => {},
+      handleClick: () => {
+        signOut(auth);
+        navigate("/");
+      },
     },
   ];
 

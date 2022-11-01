@@ -8,7 +8,7 @@ function GradientBlob() {
         position: "absolute",
         zIndex: "-10",
         minHeight:"600px",
-        height: "100%",
+        height: "120%",
         width: "auto",
         left: "50%",
         top: "50%",
