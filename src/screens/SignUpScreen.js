@@ -13,9 +13,11 @@ import { doc, setDoc } from "firebase/firestore";
 // Router
 import { Link, useNavigate } from "react-router-dom";
 
-// redux
-import { login } from "../features/auth/userSlice";
-import { useDispatch } from "react-redux";
+// icons
+import { AiFillHome } from "react-icons/ai";
+
+// MUI
+import { IconButton, useTheme } from "@mui/material";
 
 const buttonStyle = {
   padding: "1rem 2rem",
@@ -26,8 +28,15 @@ const buttonStyle = {
   color: "white",
 };
 
+const textFieldStyle = {
+  borderRadius: "5px",
+  backgroundColor: "#fff",
+  width: 250,
+};
+
 function SignUpScreen() {
   const navigate = useNavigate();
+  const theme = useTheme();
   const [credentials, setCredentials] = React.useState({
     name: "",
     email: "",
@@ -59,7 +68,10 @@ function SignUpScreen() {
           setDoc(doc(db, "users", userCredential.user.uid), {
             email: userCredential.user.email,
             name: credentials.name,
+            favorites:[],
           });
+        })
+        .then((res) => {
           navigate("/");
         })
         .catch((error) => {
@@ -73,6 +85,9 @@ function SignUpScreen() {
   return (
     <>
       <Box
+        component="form"
+        noValidate
+        autoComplete="off"
         sx={{
           position: "relative",
           display: "flex",
@@ -86,15 +101,27 @@ function SignUpScreen() {
           py: 5,
           boxSizing: "border-box",
         }}
-        variant="outlined"
       >
         <GradientBlob />
+        <IconButton
+          sx={{
+            width: "fit-content",
+            position: "absolute",
+            top: 20,
+            left: 20,
+            zIndex: 10,
+            color: theme.palette.secondary.main,
+          }}
+          onClick={() => navigate("/")}
+        >
+          <AiFillHome size="40px" />
+        </IconButton>
 
         <Typography variant="h3">Welcome!</Typography>
-        <Typography variant="h4">Sign in to continue.</Typography>
+        <Typography variant="h4">Create a new account.</Typography>
         {/* name */}
         <TextField
-          sx={{ backgroundColor: "#fff" }}
+          sx={textFieldStyle}
           name="name"
           type="text"
           color="secondary"
@@ -105,7 +132,7 @@ function SignUpScreen() {
         />
         {/* email */}
         <TextField
-          sx={{ backgroundColor: "#fff" }}
+          sx={textFieldStyle}
           name="email"
           type="email"
           color="secondary"
@@ -116,7 +143,7 @@ function SignUpScreen() {
         />
         {/* password */}
         <TextField
-          sx={{ backgroundColor: "#fff" }}
+          sx={textFieldStyle}
           name="password"
           type="password"
           color="secondary"
@@ -127,7 +154,7 @@ function SignUpScreen() {
         />
         {/* confirm password */}
         <TextField
-          sx={{ backgroundColor: "#fff" }}
+          sx={textFieldStyle}
           name="confirmPassword"
           type="password"
           color="secondary"

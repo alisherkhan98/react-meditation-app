@@ -5,7 +5,7 @@ const initialState = {
 };
 
 export const programsSlice = createSlice({
-  name: "favorites",
+  name: "programs",
   initialState,
   reducers: {
     toggleFavorites: (state, action) => {
@@ -16,12 +16,16 @@ export const programsSlice = createSlice({
       } else {
         state.favorites.push(action.payload);
       }
+      
     },
     setCurrentProgram: (state, action) => {
       state.currentProgram = action.payload
+    },
+    setInitialFavorites:(state, action) => {
+      state.favorites = action.payload
     }
   },
 });
 
-export const { toggleFavorites, setCurrentProgram } = programsSlice.actions;
+export const { toggleFavorites, setCurrentProgram, setInitialFavorites } = programsSlice.actions;
 export default programsSlice.reducer;

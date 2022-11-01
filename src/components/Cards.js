@@ -73,6 +73,7 @@ function Cards({ programs }) {
                   style={favoriteBtnStyle}
                   onClick={(event) => {
                     dispatch(toggleFavorites(program.name));
+                    
                     event.stopPropagation();
                   }}
                 />

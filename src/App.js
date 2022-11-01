@@ -5,15 +5,16 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "./app/theme";
 
 // Redux
+import { login, logout } from "./features/auth/userSlice";
 import { useSelector, useDispatch } from "react-redux";
-
+import { setInitialFavorites } from "./features/programs/programsSlice";
 // Router
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Firebase
 import { onAuthStateChanged } from "firebase/auth";
 import db, { auth } from "./app/firebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 // My imports
 import Nav from "./components/Nav";
@@ -24,15 +25,16 @@ import ProfileScreen from "./screens/ProfileScreen";
 import SignInScreen from "./screens/SignInScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import ScrollToTop from "./components/ScrollToTop";
-import { login, logout } from "./features/auth/userSlice";
-
-// Component
 
 function App() {
-  // fetch user from state
+  // fetch data from state
   const { user } = useSelector((state) => state.user);
+  const { favorites } = useSelector((state) => state.programs);
+  const [isLoading, setIsLoading] = React.useState(true)
 
   const dispatch = useDispatch();
+
+  // login and logout when ath is changed
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -43,6 +45,11 @@ function App() {
               ...docSnap.data(),
             })
           );
+
+          // set remembered favorites at start
+          if (docSnap.data().favorites) {
+            dispatch(setInitialFavorites(docSnap.data().favorites));
+          }
         });
       } else {
         dispatch(logout());
@@ -54,6 +61,20 @@ function App() {
       unsubscribe();
     };
   }, [dispatch]);
+
+  // update favorites in firestore when modified
+  useEffect(() => {
+    if (user) {
+      setDoc(
+        doc(db, "users", user.uid),
+        {
+          favorites: favorites,
+        },
+        { merge: true }
+      );
+      console.log(favorites);
+    }
+  }, [favorites]);
 
   console.log(user);
   return (

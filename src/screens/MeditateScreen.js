@@ -32,7 +32,7 @@ function MeditateScreen() {
             variant="h4"
             mb={5}
           >
-            Hi, {user.name}! Ready to relax?
+            Hi, {user?.name}! Ready to relax?
           </Typography>
 
           <Card sx={{ marginBottom: "20px" }}>

@@ -14,6 +14,9 @@ import {
   useTheme,
 } from "@mui/material";
 
+// Router
+import { useNavigate } from "react-router-dom";
+
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { closeSettingsDrawer } from "../features/modals/modalsSlice";
@@ -28,16 +31,27 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 // My imports
 import Waves from "./GradientWaves";
 
+// firebase
+import { auth } from "../app/firebaseConfig";
+import {signOut} from "firebase/auth"
+
 function SettingsDrawer() {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { settingsDrawerOpen } = useSelector((state) => state.modals);
   const { user } = useSelector((state) => state.user);
 
   const settings = [
-    { name: "Profile" },
-    { name: "Info" },
-    { name: "Sign Out" },
+    { name: "Profile", handleClick: () => {} },
+    { name: "Info", handleClick: () => {} },
+    {
+      name: "Sign Out",
+      handleClick: () => {
+        signOut(auth);
+        navigate("/");
+      },
+    },
   ];
 
   const list = () => (
@@ -107,6 +121,10 @@ function SettingsDrawer() {
                 backgroundColor: theme.palette.primary.light,
                 padding: 3,
                 borderRadius: "10px",
+              }}
+              onClick={()=>{
+                dispatch(closeSettingsDrawer())
+                setting.handleClick()
               }}
             >
               <Box sx={{ display: "flex" }}>

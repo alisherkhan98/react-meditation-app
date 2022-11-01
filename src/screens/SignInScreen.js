@@ -1,6 +1,14 @@
 import React from "react";
-import { Box, Typography, TextField, Button } from "@mui/material";
-import GradientBlob from "../components/GradientBlob";
+
+// MUI
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  useTheme,
+  IconButton,
+} from "@mui/material";
 
 // Router
 import { useNavigate, Link } from "react-router-dom";
@@ -8,6 +16,13 @@ import { useNavigate, Link } from "react-router-dom";
 // Firebase
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../app/firebaseConfig";
+
+// icons
+import { AiFillHome } from "react-icons/ai";
+
+// My imports
+import GradientBlob from "../components/GradientBlob";
+
 const buttonStyle = {
   padding: "1rem 2rem",
   width: 250,
@@ -18,8 +33,15 @@ const buttonStyle = {
   color: "white",
 };
 
+const textFieldStyle = {
+  borderRadius: "5px",
+  backgroundColor: "#fff",
+  width: 250,
+};
+
 function SignInScreen() {
   const navigate = useNavigate();
+  const theme = useTheme();
   const [credentials, setCredentials] = React.useState({
     email: "",
     password: "",
@@ -38,11 +60,10 @@ function SignInScreen() {
     e.preventDefault();
     signInWithEmailAndPassword(auth, credentials.email, credentials.password)
       .then((user) => {
-        
         navigate("/");
       })
       .catch((err) => {
-        alert(err.message);
+        alert(err.message, err.code);
       });
   };
   return (
@@ -61,16 +82,32 @@ function SignInScreen() {
           py: 5,
           boxSizing: "border-box",
         }}
-        variant="outlined"
+        component="form"
+        noValidate
+        autoComplete="off"
       >
         <GradientBlob />
 
+        <IconButton
+          sx={{
+            width: "fit-content",
+            position: "absolute",
+            top: 20,
+            left: 20,
+            zIndex: 10,
+            color: theme.palette.secondary.main,
+          }}
+          onClick={() => navigate("/")}
+        >
+          <AiFillHome size="40px" />
+        </IconButton>
+
         <Typography variant="h3">Welcome!</Typography>
-        <Typography variant="h4">Create a new account.</Typography>
+        <Typography variant="h4">Sign in to continue.</Typography>
 
         <TextField
           // html input attribute
-          sx={{ backgroundColor: "#fff" }}
+          sx={textFieldStyle}
           name="email"
           type="email"
           color="secondary"
@@ -80,7 +117,7 @@ function SignInScreen() {
           onChange={handleChange}
         />
         <TextField
-          sx={{ backgroundColor: "#fff" }}
+          sx={textFieldStyle}
           name="password"
           type="password"
           color="secondary"
