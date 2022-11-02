@@ -4,7 +4,6 @@ const initialState = {
   user: null,
 };
 
-export const incrementAsync = createAsyncThunk();
 
 export const userSlice = createSlice({
   name: "user",

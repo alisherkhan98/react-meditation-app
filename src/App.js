@@ -25,23 +25,26 @@ import ProfileScreen from "./screens/ProfileScreen";
 import SignInScreen from "./screens/SignInScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import ScrollToTop from "./components/ScrollToTop";
+import GradientBlob from "./components/GradientBlob";
 
 function App() {
   // fetch data from state
   const { user } = useSelector((state) => state.user);
   const { favorites } = useSelector((state) => state.programs);
-  const [isLoading, setIsLoading] = React.useState(true)
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const dispatch = useDispatch();
 
-  // login and logout when ath is changed
+  // login and logout when auth is changed
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        getDoc(doc(db, "users", user.uid)).then((docSnap) => {
+    const unsubscribe = onAuthStateChanged(auth, (newUser) => {
+      if (newUser) {
+        console.log(newUser);
+        // logging in with data in firestore
+        getDoc(doc(db, "users", newUser.uid)).then((docSnap) => {
           dispatch(
             login({
-              uid: user.uid,
+              uid: newUser.uid,
               ...docSnap.data(),
             })
           );
@@ -72,15 +75,13 @@ function App() {
         },
         { merge: true }
       );
-      console.log(favorites);
     }
   }, [favorites]);
 
-  console.log(user);
   return (
     <ThemeProvider theme={theme}>
       {/* Show Welcome screen only if not logged in */}
-      {user ? (
+      {(user ? (
         <Router>
           <ScrollToTop />
           <Nav />
@@ -92,13 +93,15 @@ function App() {
         </Router>
       ) : (
         <Router>
+          <GradientBlob />
+
           <Routes>
             <Route path="/" element={<WelcomeScreen />} />
             <Route path="/signin" element={<SignInScreen />} />
             <Route path="/signup" element={<SignUpScreen />} />
           </Routes>
         </Router>
-      )}
+      ))}
     </ThemeProvider>
   );
 }

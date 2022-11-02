@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import GradientBlob from "../components/GradientBlob";
 
 // firebase
 import db, { auth } from "../app/firebaseConfig";
@@ -44,6 +43,16 @@ function SignUpScreen() {
     confirmPassword: "",
   });
 
+  // function to capitalize name
+  function capitalizeWords (str) {
+    var splitStr = str.toLowerCase().split(" ");
+    for (var i = 0; i < splitStr.length; i++) {
+      splitStr[i] =
+        splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    }
+    return splitStr.join(" ");
+  }
+
   //   function to make components controlled
   function handleChange(e) {
     const target = e.target;
@@ -65,10 +74,11 @@ function SignUpScreen() {
       )
         .then((userCredential) => {
           // adding new user info in a document
+          console.log(userCredential)
           setDoc(doc(db, "users", userCredential.user.uid), {
             email: userCredential.user.email,
-            name: credentials.name,
-            favorites:[],
+            name: capitalizeWords(credentials.name),
+            favorites: [],
           });
         })
         .then((res) => {
@@ -102,7 +112,6 @@ function SignUpScreen() {
           boxSizing: "border-box",
         }}
       >
-        <GradientBlob />
         <IconButton
           sx={{
             width: "fit-content",

@@ -93,8 +93,9 @@ function SettingsDrawer() {
             fontSize: 40,
             mb: 2,
             backgroundColor: theme.palette.secondary.light,
+            
           }}
-          alt="Ali"
+          alt={user.name}
           src="/static/images/avatar/2.jpg"
         />
         <Typography mb={6} variant="h5">

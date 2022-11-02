@@ -20,8 +20,6 @@ import { auth } from "../app/firebaseConfig";
 // icons
 import { AiFillHome } from "react-icons/ai";
 
-// My imports
-import GradientBlob from "../components/GradientBlob";
 
 const buttonStyle = {
   padding: "1rem 2rem",
@@ -86,7 +84,6 @@ function SignInScreen() {
         noValidate
         autoComplete="off"
       >
-        <GradientBlob />
 
         <IconButton
           sx={{

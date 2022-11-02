@@ -6,8 +6,6 @@ import { Box, Typography, Button, Grid, ButtonBase } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { loginAsGuest } from "../features/auth/userSlice";
 
-// My imports
-import GradientBlob from "../components/GradientBlob";
 
 // Router
 import { Link, useNavigate } from "react-router-dom";
@@ -46,7 +44,6 @@ function WelcomeScreen() {
     <>
       <Box sx={containerStyle}>
         {/* Background svg */}
-        <GradientBlob />
         <Typography mt={5} mb={10} variant="h2">
           Take a break.
           <br /> Meditate

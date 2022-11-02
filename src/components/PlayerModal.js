@@ -16,7 +16,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { closePlayer } from "../features/modals/modalsSlice";
 
 // My imports
-import { programs } from "../app/data";
 import Timer from "./Timer";
 import { Timeit } from "react-timeit";
 import Waves from "./GradientWaves";
@@ -50,6 +49,7 @@ const style = {
   borderRadius: { sm: 4 },
   zIndex: 0,
   overflow: "hidden",
+  outline: "none",
 };
 
 // Button styles
@@ -66,16 +66,12 @@ const playerButtonStyle = {
   mx: 1,
 };
 
-export default function PlayerModal() {
+export default function PlayerModal({ currentProgram }) {
   const theme = useTheme();
-
+console.log("re-render");
   // redux
   const { playerOpen } = useSelector((state) => state.modals);
   const dispatch = useDispatch();
-
-  // selecting current program
-  let { currentProgram } = useSelector((state) => state.programs);
-  currentProgram = programs.find((program) => program.name === currentProgram);
 
   // defining states
   const [pickedTime, setPickedTime] = React.useState(0);
@@ -85,10 +81,9 @@ export default function PlayerModal() {
   const [volume, setVolume] = React.useState(100);
   const volumeRelative = volume / 100;
 
-  console.log(currentProgram?.soundUrl);
   // Sound
   const [play, { stop, pause, sound }] = useSound(currentProgram?.soundUrl, {
-    loop: false,
+    loop: true,
     volume: volumeRelative,
   });
   // function to save value of time picker
@@ -103,12 +98,11 @@ export default function PlayerModal() {
     setVolume(newValue);
   };
 
-  // function to handle timer end, passed as prop
-
-  // useEffect to reset everything if you reset or the player is closed
+  // useEffect to reset everything if the player is closed or opened
   React.useEffect(() => {
     setIsPlaying(false);
     setIsStarted(false);
+    setVolume(100);
   }, [playerOpen]);
   return (
     <Modal
@@ -127,7 +121,7 @@ export default function PlayerModal() {
       sx={{ overflow: "scroll" }}
     >
       <Fade in={playerOpen}>
-        <Box sx={style}>
+        <Box sx={style} onMouseDown={(e) => e.preventDefault()}>
           <Waves />
           {/* button to close player */}
           <IconButton

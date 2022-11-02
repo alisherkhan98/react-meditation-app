@@ -13,6 +13,7 @@ import {
   Button,
   Tooltip,
   MenuItem,
+  useTheme
 } from "@mui/material";
 
 // Icons
@@ -24,9 +25,15 @@ import { useNavigate } from "react-router-dom";
 // Firebase
 import { signOut } from "firebase/auth";
 import { auth } from "../app/firebaseConfig";
+
+// redux
+import { useSelector } from "react-redux";
+
 function DesktopNav() {
+  const { user } = useSelector((state) => state.user);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
+  const theme = useTheme()
   // Nav links
   const pages = [
     {
@@ -115,7 +122,13 @@ function DesktopNav() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Sharp" src="" />
+                <Avatar
+                  sx={{
+                    backgroundColor: theme.palette.secondary.light,
+                  }}
+                  alt={user.name}
+                  src="/static/images/avatar/2.jpg"
+                />
               </IconButton>
             </Tooltip>
             <Menu

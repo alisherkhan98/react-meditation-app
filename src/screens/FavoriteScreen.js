@@ -13,10 +13,17 @@ import Cards from "../components/Cards";
 import PlayerModal from "../components/PlayerModal";
 
 function FavoriteScreen() {
+  // filterimg favorites from programs data
   const favoriteNames = useSelector((state) => state.programs.favorites);
   const favorites = programs.filter((program) =>
-    favoriteNames.includes(program.name)
+  favoriteNames.includes(program.name)
   );
+
+  const { playerOpen } = useSelector((state) => state.modals);
+  
+  // selecting current program
+  let { currentProgram } = useSelector((state) => state.programs);
+ currentProgram = programs.find((program) => program.name === currentProgram);
 
   return (
     <>
@@ -59,7 +66,8 @@ function FavoriteScreen() {
         </Container>
       </Box>
 
-      <PlayerModal/>
+      {playerOpen && <PlayerModal currentProgram={currentProgram} />}
+
     </>
   );
 }

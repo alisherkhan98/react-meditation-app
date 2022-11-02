@@ -14,6 +14,12 @@ import PlayerModal from "../components/PlayerModal";
 
 function MeditateScreen() {
   const { user } = useSelector((state) => state.user);
+  const { playerOpen } = useSelector((state) => state.modals);
+
+  // selecting current program
+  let { currentProgram } = useSelector((state) => state.programs);
+  currentProgram = programs.find((program) => program.name === currentProgram);
+
   const dispatch = useDispatch();
 
   return (
@@ -22,9 +28,7 @@ function MeditateScreen() {
       <Waves />
 
       {/* Main */}
-      <Box
-        sx={{ py: { xs: "15%", sm: "10%" }, px: 3, minHeight: "100vh" }}
-      >
+      <Box sx={{ py: { xs: "15%", sm: "10%" }, px: 3, minHeight: "100vh" }}>
         <Container maxWidth="lg">
           {/* Heading */}
           <Typography
@@ -63,7 +67,7 @@ function MeditateScreen() {
           <Cards programs={programs} />
         </Container>
       </Box>
-      <PlayerModal />
+      {playerOpen && <PlayerModal currentProgram={currentProgram} />}
     </>
   );
 }

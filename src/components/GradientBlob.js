@@ -1,21 +1,34 @@
+import { Box } from "@mui/material";
 import React from "react";
 import blob from "../assets/images/blob.png";
 function GradientBlob() {
   return (
-    <img
-      src={blob}
-      style={{
+    <Box
+      sx={{
         position: "absolute",
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
         zIndex: "-10",
-        minHeight:"600px",
-        height: "120%",
-        width: "auto",
-        left: "50%",
-        top: "50%",
-        transform: "translate(-50%,-50%)",
+        overflow: "hidden",
+        boxSizing: "border-box",
       }}
-      alt=""
-    />
+    >
+      <img
+        src={blob}
+        style={{
+          position: "absolute",
+          minHeight: "600px",
+          height: "120%",
+          width: "auto",
+          left: "50%",
+          top: "55%",
+          transform: "translate(-50%,-50%)",
+        }}
+        alt=""
+      />
+    </Box>
     // <svg
     //   xmlns="http://www.w3.org/2000/svg"
     //   viewBox="0 0 1000 1000"
