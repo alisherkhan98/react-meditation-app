@@ -26,6 +26,7 @@ import SignInScreen from "./screens/SignInScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import ScrollToTop from "./components/ScrollToTop";
 import GradientBlob from "./components/GradientBlob";
+import Loading from "./components/Loading";
 
 function App() {
   // fetch data from state
@@ -41,21 +42,28 @@ function App() {
       if (newUser) {
         console.log(newUser);
         // logging in with data in firestore
-        getDoc(doc(db, "users", newUser.uid)).then((docSnap) => {
-          dispatch(
-            login({
-              uid: newUser.uid,
-              ...docSnap.data(),
-            })
-          );
+        getDoc(doc(db, "users", newUser.uid))
+          .then((docSnap) => {
+            dispatch(
+              login({
+                uid: newUser.uid,
+                ...docSnap.data(),
+              })
+            );
 
-          // set remembered favorites at start
-          if (docSnap.data().favorites) {
-            dispatch(setInitialFavorites(docSnap.data().favorites));
-          }
-        });
+            // set remembered favorites at start
+            if (docSnap.data().favorites) {
+              dispatch(setInitialFavorites(docSnap.data().favorites));
+            }
+            return docSnap;
+          })
+          .then((docSnap) => {
+            setIsLoading(false);
+          });
       } else {
         dispatch(logout());
+        setIsLoading(false);
+
         console.log("logged out");
       }
     });
@@ -63,7 +71,7 @@ function App() {
     return () => {
       unsubscribe();
     };
-  }, [dispatch]);
+  }, []);
 
   // update favorites in firestore when modified
   useEffect(() => {
@@ -80,8 +88,10 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* Show Welcome screen only if not logged in */}
-      {(user ? (
+      {isLoading ? (
+        <Loading />
+      ) : // Show Welcome screen only if not logged in
+      user ? (
         <Router>
           <ScrollToTop />
           <Nav />
@@ -101,7 +111,7 @@ function App() {
             <Route path="/signup" element={<SignUpScreen />} />
           </Routes>
         </Router>
-      ))}
+      )}
     </ThemeProvider>
   );
 }
