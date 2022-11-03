@@ -20,8 +20,6 @@ import Timer from "./Timer";
 import { Timeit } from "react-timeit";
 import Waves from "./GradientWaves";
 
-// Sound
-import useSound from "use-sound";
 
 // Icons
 import CloseIcon from "@mui/icons-material/Close";
