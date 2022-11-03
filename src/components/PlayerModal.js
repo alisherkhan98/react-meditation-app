@@ -68,7 +68,6 @@ const playerButtonStyle = {
 
 export default function PlayerModal({ currentProgram }) {
   const theme = useTheme();
-console.log("re-render");
   // redux
   const { playerOpen } = useSelector((state) => state.modals);
   const dispatch = useDispatch();
@@ -79,13 +78,13 @@ console.log("re-render");
   const [isStarted, setIsStarted] = React.useState(false);
   const [reset, setReset] = React.useState(false);
   const [volume, setVolume] = React.useState(100);
-  const volumeRelative = volume / 100;
 
-  // Sound
-  const [play, { stop, pause, sound }] = useSound(currentProgram?.soundUrl, {
-    loop: true,
-    volume: volumeRelative,
-  });
+  // ref for the audio element
+  const audioRef = React.useRef(null);
+  if (audioRef.current) {
+    audioRef.current.volume = volume / 100;
+  }
+
   // function to save value of time picker
   function handleChange(value) {
     const timeArray = value.split(":");
@@ -111,7 +110,7 @@ console.log("re-render");
       open={playerOpen}
       onClose={() => {
         dispatch(closePlayer());
-        stop();
+        audioRef.current.pause();
       }}
       closeAfterTransition
       BackdropComponent={Backdrop}
@@ -135,12 +134,12 @@ console.log("re-render");
             size="large"
             onClick={() => {
               dispatch(closePlayer());
-              stop();
+              audioRef.current.pause();
             }}
           >
             <CloseIcon fontSize="large" />
           </IconButton>
-
+          <audio ref={audioRef} src={currentProgram?.soundUrl} loop></audio>
           {/* if session has started show timer with player buttons, if not then show time picker */}
           {isStarted ? (
             <>
@@ -150,11 +149,10 @@ console.log("re-render");
                 isPlaying={isPlaying}
                 key={reset}
                 handleEnd={() => {
-                  sound.fade(volumeRelative, 0, 1000);
                   setIsPlaying(false);
-                  setTimeout(() => {
-                    stop();
-                  }, 1000);
+                  
+                    audioRef.current.pause();
+                  
                 }}
               />
               <Box
@@ -175,7 +173,7 @@ console.log("re-render");
                     onClick={() => {
                       setIsPlaying(false);
                       setReset(!reset);
-                      stop();
+                      audioRef.current.pause();
                     }}
                   >
                     <MdRefresh size="24px" />
@@ -189,8 +187,7 @@ console.log("re-render");
                       sx={{ ...playerButtonStyle, p: "1.5rem" }}
                       onClick={() => {
                         setIsPlaying(false);
-                        pause();
-                        sound?.fade(volumeRelative, 0, 1000);
+                        audioRef.current.pause();
                       }}
                     >
                       <BsPauseFill size="30px" />
@@ -202,8 +199,7 @@ console.log("re-render");
                       sx={{ ...playerButtonStyle, p: "1.5rem" }}
                       onClick={() => {
                         setIsPlaying(true);
-                        play();
-                        sound?.fade(0, volumeRelative, 1000);
+                        audioRef.current.play();
                       }}
                     >
                       <BsFillPlayFill size="30px" />
@@ -218,7 +214,9 @@ console.log("re-render");
                       setIsPlaying(false);
                       setIsStarted(!isStarted);
                       setReset(!reset);
-                      stop();
+                      audioRef.current.pause();
+                      audioRef.current.currentTime = 0;
+
                     }}
                   >
                     <BsStopFill size="24px" />
@@ -272,11 +270,11 @@ console.log("re-render");
                   color="secondary"
                   sx={buttonStyle}
                   onClick={() => {
-                    if (pickedTime === 0) return;
-                    setIsPlaying(true);
-                    setIsStarted(!isStarted);
-                    play();
-                    sound?.fade(0, 1, 1000);
+                    if (pickedTime !== 0) {
+                      setIsPlaying(true);
+                      setIsStarted(true);
+                      audioRef.current.play();
+                    }
                   }}
                 >
                   <Typography variant="body" sx={{ fontWeight: 700 }}>

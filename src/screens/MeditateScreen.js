@@ -67,7 +67,7 @@ function MeditateScreen() {
           <Cards programs={programs} />
         </Container>
       </Box>
-      {playerOpen && <PlayerModal currentProgram={currentProgram} />}
+      {currentProgram && <PlayerModal currentProgram={currentProgram} />}
     </>
   );
 }

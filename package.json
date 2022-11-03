@@ -21,7 +21,6 @@
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
     "react-timeit": "^1.2.12",
-    "use-sound": "^4.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
