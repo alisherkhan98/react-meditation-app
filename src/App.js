@@ -58,7 +58,7 @@ function App() {
             return docSnap;
           })
           .then((docSnap) => {
-            // setTimeout(()=>setIsLoading(false), 2000)
+            setTimeout(()=>setIsLoading(false), 2000)
             
           });
       } else {
