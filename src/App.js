@@ -58,7 +58,8 @@ function App() {
             return docSnap;
           })
           .then((docSnap) => {
-            setIsLoading(false);
+            // setTimeout(()=>setIsLoading(false), 2000)
+            
           });
       } else {
         dispatch(logout());
