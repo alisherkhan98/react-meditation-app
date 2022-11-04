@@ -88,10 +88,10 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Loading open={isLoading}/>
-      {
+      <Loading open={isLoading} />
+      {!isLoading &&
         // Show Welcome screen only if not logged in
-        user ? (
+        (user ? (
           <Router>
             <ScrollToTop />
             <Nav />
@@ -111,8 +111,7 @@ function App() {
               <Route path="/signup" element={<SignUpScreen />} />
             </Routes>
           </Router>
-        )
-      }
+        ))}
     </ThemeProvider>
   );
 }

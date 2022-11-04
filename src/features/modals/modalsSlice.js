@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   settingsDrawerOpen: false,
   playerOpen: false,
+  logoutModalOpen:false
 };
 
 export const drawerSlice = createSlice({
@@ -21,6 +22,13 @@ export const drawerSlice = createSlice({
     },
 
     closePlayer: (state) => {
+      state.playerOpen = false;
+    },
+    openLogoutModal: (state) => {
+      state.playerOpen = true;
+    },
+
+    closeLogoutModal: (state) => {
       state.playerOpen = false;
     },
     
