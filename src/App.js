@@ -63,7 +63,7 @@ function App() {
           });
       } else {
         dispatch(logout());
-        setIsLoading(false);
+        setTimeout(()=>setIsLoading(false), 2000)
 
         console.log("logged out");
       }

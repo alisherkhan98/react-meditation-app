@@ -28,28 +28,28 @@ function Loading() {
         maxWidth:"200px"
       }}
     >
-      <circle cx="6" cy="50" r="6" fill="#fff">
-        <animate
-          attributeName="opacity"
-          begin="0.1"
-          dur="1.5s"
-          repeatCount="indefinite"
-          values="0;1;0"
-        ></animate>
-      </circle>
-      <circle cx="26" cy="50" r="6" fill="#fff">
-        <animate
-          attributeName="opacity"
-          begin="0.2"
-          dur="1.5s"
-          repeatCount="indefinite"
-          values="0;1;0"
-        ></animate>
-      </circle>
-      <circle cx="46" cy="50" r="6" fill="#fff">
+      <circle cx="6" cy="50" r="6" fill="#fff" opacity="0">
         <animate
           attributeName="opacity"
           begin="0.3"
+          dur="1.5s"
+          repeatCount="indefinite"
+          values="0;1;0"
+        ></animate>
+      </circle>
+      <circle cx="26" cy="50" r="6" fill="#fff" opacity="0">
+        <animate
+          attributeName="opacity"
+          begin="0.4"
+          dur="1.5s"
+          repeatCount="indefinite"
+          values="0;1;0"
+        ></animate>
+      </circle>
+      <circle cx="46" cy="50" r="6" fill="#fff" opacity="0">
+        <animate
+          attributeName="opacity"
+          begin="0.5"
           dur="1.5s"
           repeatCount="indefinite"
           values="0;1;0"
