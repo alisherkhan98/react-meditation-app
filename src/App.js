@@ -58,12 +58,11 @@ function App() {
             return docSnap;
           })
           .then((docSnap) => {
-            setTimeout(()=>setIsLoading(false), 2000)
-            
+            setTimeout(() => setIsLoading(false), 2000);
           });
       } else {
         dispatch(logout());
-        setTimeout(()=>setIsLoading(false), 2000)
+        setTimeout(() => setIsLoading(false), 2000);
 
         console.log("logged out");
       }
@@ -89,30 +88,31 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      {isLoading ? (
-        <Loading />
-      ) : // Show Welcome screen only if not logged in
-      user ? (
-        <Router>
-          <ScrollToTop />
-          <Nav />
-          <Routes>
-            <Route path="/" element={<MeditateScreen />} />
-            <Route path="/favorites" element={<FavoriteScreen />} />
-            <Route path="/profile" element={<ProfileScreen />} />
-          </Routes>
-        </Router>
-      ) : (
-        <Router>
-          <GradientBlob />
+      <Loading open={isLoading}/>
+      {
+        // Show Welcome screen only if not logged in
+        user ? (
+          <Router>
+            <ScrollToTop />
+            <Nav />
+            <Routes>
+              <Route path="/" element={<MeditateScreen />} />
+              <Route path="/favorites" element={<FavoriteScreen />} />
+              <Route path="/profile" element={<ProfileScreen />} />
+            </Routes>
+          </Router>
+        ) : (
+          <Router>
+            <GradientBlob />
 
-          <Routes>
-            <Route path="/" element={<WelcomeScreen />} />
-            <Route path="/signin" element={<SignInScreen />} />
-            <Route path="/signup" element={<SignUpScreen />} />
-          </Routes>
-        </Router>
-      )}
+            <Routes>
+              <Route path="/" element={<WelcomeScreen />} />
+              <Route path="/signin" element={<SignInScreen />} />
+              <Route path="/signup" element={<SignUpScreen />} />
+            </Routes>
+          </Router>
+        )
+      }
     </ThemeProvider>
   );
 }
