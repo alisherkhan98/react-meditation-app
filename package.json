@@ -12,6 +12,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
     "firebase": "^9.13.0",
+    "my-library-timeit": "file:myDependencies/react-timeit",
     "react": "^18.2.0",
     "react-countdown-circle-timer": "^3.0.9",
     "react-dom": "^18.2.0",
@@ -20,7 +21,7 @@
     "react-responsive": "^9.0.0",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
-    "react-timeit": "file:myDependencies/react-timeit",
+    "react-timeit": "^1.2.12",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
