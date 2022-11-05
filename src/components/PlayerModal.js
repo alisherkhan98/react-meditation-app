@@ -17,7 +17,7 @@ import { closePlayer } from "../features/modals/modalsSlice";
 
 // My imports
 import Timer from "./Timer";
-import { Timeit } from "react-timeit-new";
+import { Timeit } from "my-react-timeit";
 import Waves from "./GradientWaves";
 
 
