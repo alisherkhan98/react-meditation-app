@@ -27,11 +27,17 @@ import { signOut } from "firebase/auth";
 import { auth } from "../app/firebaseConfig";
 
 // redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { openSignOutModal } from "../features/modals/modalsSlice";
+
+// my imports
+import SignOutConfirm from "./SignOutConfirm";
 
 function DesktopNav() {
   const { user } = useSelector((state) => state.user);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const dispatch = useDispatch()
   const navigate = useNavigate();
   const theme = useTheme()
   // Nav links
@@ -56,10 +62,9 @@ function DesktopNav() {
       handleClick: () => navigate("/profile"),
     },
     {
-      name: "Logout",
+      name: "Sign Out",
       handleClick: () => {
-        signOut(auth);
-        navigate("/");
+        dispatch(openSignOutModal())
       },
     },
   ];
@@ -163,6 +168,9 @@ function DesktopNav() {
           </Box>
         </Toolbar>
       </Container>
+
+      {/* modal to confirm sign out */}
+      <SignOutConfirm/>
     </AppBar>
   );
 }

@@ -18,6 +18,10 @@ import { AiFillHome } from "react-icons/ai";
 // MUI
 import { IconButton, useTheme } from "@mui/material";
 
+// redux
+import { openLoading } from "../features/modals/modalsSlice";
+import { useDispatch } from "react-redux";
+
 const buttonStyle = {
   padding: "1rem 2rem",
   width: 250,
@@ -36,6 +40,8 @@ const textFieldStyle = {
 function SignUpScreen() {
   const navigate = useNavigate();
   const theme = useTheme();
+  const dispatch = useDispatch()
+
   const [credentials, setCredentials] = React.useState({
     name: "",
     email: "",
@@ -65,8 +71,10 @@ function SignUpScreen() {
   //   function to handle submit
   function handleSubmit(e) {
     e.preventDefault();
+    dispatch(openLoading())
 
     if (credentials.password === credentials.confirmPassword) {
+      // create new user in firebase
       createUserWithEmailAndPassword(
         auth,
         credentials.email,
@@ -81,7 +89,7 @@ function SignUpScreen() {
             favorites: [],
           });
         })
-        .then((res) => {
+        .then(() => {
           navigate("/");
         })
         .catch((error) => {
@@ -177,6 +185,7 @@ function SignUpScreen() {
           variant="contained"
           color="secondary"
           onClick={handleSubmit}
+          type="submit"
         >
           Sign up
         </Button>

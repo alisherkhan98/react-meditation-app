@@ -12,7 +12,6 @@ function Loading({open}) {
         timeout: 500,
       }}
     >
-      <Fade in={open}>
         <div
           style={{
             position: "fixed",
@@ -36,7 +35,7 @@ function Loading({open}) {
             xmlSpace="preserve"
             width="20vw"
             style={{
-              maxWidth: "200px",
+              maxWidth: "90px",
             }}
           >
             <circle cx="6" cy="50" r="6" fill="#fff" opacity="0">
@@ -68,7 +67,6 @@ function Loading({open}) {
             </circle>
           </svg>
         </div>
-      </Fade>
     </Modal>
   );
 }

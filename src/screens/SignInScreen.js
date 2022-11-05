@@ -20,6 +20,10 @@ import { auth } from "../app/firebaseConfig";
 // icons
 import { AiFillHome } from "react-icons/ai";
 
+// redux
+import { openLoading } from "../features/modals/modalsSlice";
+import { useDispatch } from "react-redux";
+
 
 const buttonStyle = {
   padding: "1rem 2rem",
@@ -39,6 +43,7 @@ const textFieldStyle = {
 
 function SignInScreen() {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const theme = useTheme();
   const [credentials, setCredentials] = React.useState({
     email: "",
@@ -56,10 +61,13 @@ function SignInScreen() {
   //   function to handle sign in
   const signIn = (e) => {
     e.preventDefault();
+    dispatch(openLoading())
+
+    // firebase sign in
     signInWithEmailAndPassword(auth, credentials.email, credentials.password)
       .then((user) => {
         navigate("/");
-      })
+      }) 
       .catch((err) => {
         alert(err.message, err.code);
       });
@@ -128,6 +136,7 @@ function SignInScreen() {
           variant="contained"
           color="secondary"
           onClick={signIn}
+          type="submit"
         >
           Sign in
         </Button>

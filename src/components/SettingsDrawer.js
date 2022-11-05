@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { closeSettingsDrawer } from "../features/modals/modalsSlice";
+import { closeSettingsDrawer, openSignOutModal } from "../features/modals/modalsSlice";
 
 // Icons
 import CloseIcon from "@mui/icons-material/Close";
@@ -30,10 +30,8 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 
 // My imports
 import Waves from "./GradientWaves";
+import SignOutConfirm from "./SignOutConfirm";
 
-// firebase
-import { auth } from "../app/firebaseConfig";
-import {signOut} from "firebase/auth"
 
 function SettingsDrawer() {
   const theme = useTheme();
@@ -48,8 +46,7 @@ function SettingsDrawer() {
     {
       name: "Sign Out",
       handleClick: () => {
-        signOut(auth);
-        navigate("/");
+        dispatch(openSignOutModal())
       },
     },
   ];
@@ -124,7 +121,7 @@ function SettingsDrawer() {
                 borderRadius: "10px",
               }}
               onClick={()=>{
-                dispatch(closeSettingsDrawer())
+                // dispatch(closeSettingsDrawer())
                 setting.handleClick()
               }}
             >
@@ -157,6 +154,7 @@ function SettingsDrawer() {
   return (
     <Drawer color="primary" anchor="right" open={settingsDrawerOpen}>
       {list()}
+      <SignOutConfirm/>
     </Drawer>
   );
 }

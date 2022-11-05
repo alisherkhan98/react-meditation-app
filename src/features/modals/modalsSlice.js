@@ -3,11 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   settingsDrawerOpen: false,
   playerOpen: false,
-  logoutModalOpen:false
+  signOutModalOpen: false,
+  isLoading: true,
 };
 
-export const drawerSlice = createSlice({
-  name: "drawers",
+export const modalSlice = createSlice({
+  name: "modals",
   initialState,
   reducers: {
     openSettingsDrawer: (state) => {
@@ -24,14 +25,20 @@ export const drawerSlice = createSlice({
     closePlayer: (state) => {
       state.playerOpen = false;
     },
-    openLogoutModal: (state) => {
-      state.playerOpen = true;
+    openLoading: (state) => {
+      state.isLoading = true;
     },
 
-    closeLogoutModal: (state) => {
-      state.playerOpen = false;
+    closeLoading: (state) => {
+      state.isLoading = false;
     },
-    
+    openSignOutModal: (state) => {
+      state.signOutModalOpen = true;
+    },
+
+    closeSignOutModal: (state) => {
+      state.signOutModalOpen = false;
+    },
   },
 });
 
@@ -40,5 +47,9 @@ export const {
   closeSettingsDrawer,
   openPlayer,
   closePlayer,
-} = drawerSlice.actions;
-export default drawerSlice.reducer;
+  openSignOutModal,
+  closeSignOutModal,
+  openLoading,
+  closeLoading,
+} = modalSlice.actions;
+export default modalSlice.reducer;
