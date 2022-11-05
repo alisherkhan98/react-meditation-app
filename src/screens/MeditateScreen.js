@@ -25,7 +25,6 @@ function MeditateScreen() {
   return (
     <>
       {/* Background svg */}
-      <Waves />
 
       {/* Main */}
       <Box sx={{ py: { xs: "15%", sm: "10%" }, px: 3, minHeight: "100vh" }}>

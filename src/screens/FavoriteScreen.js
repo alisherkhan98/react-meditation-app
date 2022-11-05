@@ -28,7 +28,6 @@ function FavoriteScreen() {
   return (
     <>
       {/* Background svg */}
-      <Waves />
 
       {/* Main */}
       <Box

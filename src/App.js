@@ -28,6 +28,7 @@ import SignUpScreen from "./screens/SignUpScreen";
 import ScrollToTop from "./components/ScrollToTop";
 import GradientBlob from "./components/GradientBlob";
 import Loading from "./components/Loading";
+import Waves from "./components/GradientWaves";
 
 function App() {
   // fetch data from state
@@ -101,6 +102,7 @@ function App() {
             <>
               <ScrollToTop />
               <Nav />
+              <Waves/>
               <Routes>
                 <Route path="/" element={<MeditateScreen />} />
                 <Route path="/favorites" element={<FavoriteScreen />} />
