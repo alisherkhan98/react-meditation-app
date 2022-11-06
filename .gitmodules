@@ -1,0 +1,3 @@
+[submodule "/myDependencies/my-react-timeit"] 
+  path = /myDependencies/my-react-timeit 
+  url = git://https://github.com/alisherkhan98/my-react-timeit.git/
