@@ -19,7 +19,12 @@ import { AiFillHome } from "react-icons/ai";
 import { IconButton, useTheme } from "@mui/material";
 
 // redux
-import { openLoading } from "../features/modals/modalsSlice";
+import {
+  openLoading,
+  closeLoading,
+  openAlert,
+  closeAlert,
+} from "../features/modals/modalsSlice";
 import { useDispatch } from "react-redux";
 
 const buttonStyle = {
@@ -40,7 +45,7 @@ const textFieldStyle = {
 function SignUpScreen() {
   const navigate = useNavigate();
   const theme = useTheme();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const [credentials, setCredentials] = React.useState({
     name: "",
@@ -50,7 +55,7 @@ function SignUpScreen() {
   });
 
   // function to capitalize name
-  function capitalizeWords (str) {
+  function capitalizeWords(str) {
     var splitStr = str.toLowerCase().split(" ");
     for (var i = 0; i < splitStr.length; i++) {
       splitStr[i] =
@@ -71,9 +76,18 @@ function SignUpScreen() {
   //   function to handle submit
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(openLoading())
-
+    for (let input in credentials) {
+      if (!credentials[input]) {
+        dispatch(openAlert("Please complete the form"));
+        setTimeout(() => {
+          dispatch(closeAlert());
+        }, 2000);
+        return
+      }
+    }
     if (credentials.password === credentials.confirmPassword) {
+      let isAborted = false
+      
       // create new user in firebase
       createUserWithEmailAndPassword(
         auth,
@@ -82,21 +96,28 @@ function SignUpScreen() {
       )
         .then((userCredential) => {
           // adding new user info in a document
-          console.log(userCredential)
+          console.log(userCredential);
           setDoc(doc(db, "users", userCredential.user.uid), {
             email: userCredential.user.email,
             name: capitalizeWords(credentials.name),
             favorites: [],
           });
         })
+        .catch((error) => {
+          isAborted = true
+          dispatch(closeLoading());
+          dispatch(openAlert(error.message));
+          setTimeout(() => {
+            dispatch(closeAlert());
+          }, 2000);
+        })
         .then(() => {
+          if (isAborted) return
+          dispatch(openLoading());
           navigate("/");
         })
-        .catch((error) => {
-          console.log(error.message);
-        });
-    } else {
-      alert("passwords dont match");
+      } else {
+        alert("passwords dont match");
     }
   }
 
@@ -138,6 +159,7 @@ function SignUpScreen() {
         <Typography variant="h4">Create a new account.</Typography>
         {/* name */}
         <TextField
+          required
           sx={textFieldStyle}
           name="name"
           type="text"
@@ -149,6 +171,7 @@ function SignUpScreen() {
         />
         {/* email */}
         <TextField
+          required
           sx={textFieldStyle}
           name="email"
           type="email"
@@ -160,6 +183,7 @@ function SignUpScreen() {
         />
         {/* password */}
         <TextField
+          required
           sx={textFieldStyle}
           name="password"
           type="password"
@@ -171,6 +195,7 @@ function SignUpScreen() {
         />
         {/* confirm password */}
         <TextField
+          required
           sx={textFieldStyle}
           name="confirmPassword"
           type="password"
