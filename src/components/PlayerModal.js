@@ -78,12 +78,7 @@ export default function PlayerModal({ currentProgram }) {
   const [reset, setReset] = React.useState(false);
   const [volume, setVolume] = React.useState(100);
 
-  // ref for the audio element
-  const audioRef = React.useRef(null);
-  if (audioRef.current) {
-    audioRef.current.volume = volume / 100;
-  }
-
+  
   // functions to select value of time picker
   function handlePlusBtn() {
     setPickedTime((prev) => +prev + 1);
@@ -92,9 +87,16 @@ export default function PlayerModal({ currentProgram }) {
     if (pickedTime == 0) return;
     setPickedTime((prev) => +prev - 1);
   }
-
+  
   function handleInputChange(e) {
     setPickedTime(e.target.value);
+  }
+
+  // ref for the audio element
+  const audioRef = React.useRef(null);
+  
+  if (audioRef.current) {
+    audioRef.current.volume = volume / 100;
   }
 
   // function to change volume state
@@ -109,6 +111,7 @@ export default function PlayerModal({ currentProgram }) {
     setIsStarted(false);
     setVolume(100);
   }, [playerOpen]);
+
   return (
     <Modal
       disableEnforceFocus
