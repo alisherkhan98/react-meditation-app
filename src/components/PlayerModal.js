@@ -18,7 +18,6 @@ import { closePlayer } from "../features/modals/modalsSlice";
 
 // My imports
 import Timer from "./Timer";
-import { Timeit } from "my-react-timeit";
 import Waves from "./GradientWaves";
 
 // Icons
@@ -248,7 +247,6 @@ export default function PlayerModal({ currentProgram }) {
             </>
           ) : (
             <>
-              {/* <Timeit onChange={handleChange} /> */}
               <TimePicker
                 handlePlusBtn={handlePlusBtn}
                 handleMinusBtn={handleMinusBtn}
