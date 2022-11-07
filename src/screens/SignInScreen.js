@@ -120,6 +120,7 @@ function SignInScreen() {
           label="Email"
           variant="filled"
           onChange={handleChange}
+          value={credentials.email}
         />
         <TextField
           sx={textFieldStyle}
@@ -130,6 +131,7 @@ function SignInScreen() {
           label="Password"
           variant="filled"
           onChange={handleChange}
+          value={credentials.password}
         />
         <Button
           sx={buttonStyle}

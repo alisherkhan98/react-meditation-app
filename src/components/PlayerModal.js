@@ -11,6 +11,7 @@ import {
   useTheme,
   Slider,
   Stack,
+  TextField,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { closePlayer } from "../features/modals/modalsSlice";
@@ -20,12 +21,12 @@ import Timer from "./Timer";
 import { Timeit } from "my-react-timeit";
 import Waves from "./GradientWaves";
 
-
 // Icons
 import CloseIcon from "@mui/icons-material/Close";
 import { BsFillPlayFill, BsPauseFill, BsStopFill } from "react-icons/bs";
 import { MdRefresh } from "react-icons/md";
 import { ImVolumeMedium } from "react-icons/im";
+import TimePicker from "./TimePicker";
 
 // Modal Box styles
 const style = {
@@ -40,7 +41,8 @@ const style = {
   flexDirection: { xs: "column", sm: "row" },
   justifyContent: "center",
   minHeight: { xs: "100vh", sm: "fit-content" },
-  maxWidth: { sm: "600px" },
+  maxWidth: { sm: "700px" },
+  minWidth:{sm: "600px"},
   aspectRatio: { sm: "16/9" },
   alignItems: "center",
   boxSizing: "border-box",
@@ -83,11 +85,17 @@ export default function PlayerModal({ currentProgram }) {
     audioRef.current.volume = volume / 100;
   }
 
-  // function to save value of time picker
-  function handleChange(value) {
-    const timeArray = value.split(":");
-    const seconds = +timeArray[0] * 60 + +timeArray[1];
-    setPickedTime(seconds);
+  // functions to select value of time picker
+  function handlePlusBtn() {
+    setPickedTime((prev) => +prev + 1);
+  }
+  function handleMinusBtn() {
+    if (pickedTime == 0) return;
+    setPickedTime((prev) => +prev - 1);
+  }
+
+  function handleInputChange(e) {
+    setPickedTime(e.target.value);
   }
 
   // function to change volume state
@@ -97,12 +105,14 @@ export default function PlayerModal({ currentProgram }) {
 
   // useEffect to reset everything if the player is closed or opened
   React.useEffect(() => {
+    setPickedTime(0);
     setIsPlaying(false);
     setIsStarted(false);
     setVolume(100);
   }, [playerOpen]);
   return (
     <Modal
+      disableEnforceFocus
       aria-labelledby="player"
       aria-describedby="player for desktop"
       open={playerOpen}
@@ -118,7 +128,7 @@ export default function PlayerModal({ currentProgram }) {
       sx={{ overflow: "scroll" }}
     >
       <Fade in={playerOpen}>
-        <Box sx={style} onMouseDown={(e) => e.preventDefault()}>
+        <Box sx={style} onDoubleClick={(e) => e.preventDefault()}>
           <Waves />
           {/* button to close player */}
           <IconButton
@@ -142,15 +152,14 @@ export default function PlayerModal({ currentProgram }) {
           {isStarted ? (
             <>
               <Timer
-                duration={pickedTime}
+                duration={pickedTime * 60}
                 color={theme.palette.secondary.main}
                 isPlaying={isPlaying}
                 key={reset}
                 handleEnd={() => {
                   setIsPlaying(false);
-                  
-                    audioRef.current.pause();
-                  
+
+                  audioRef.current.pause();
                 }}
               />
               <Box
@@ -214,7 +223,6 @@ export default function PlayerModal({ currentProgram }) {
                       setReset(!reset);
                       audioRef.current.pause();
                       audioRef.current.currentTime = 0;
-
                     }}
                   >
                     <BsStopFill size="24px" />
@@ -240,9 +248,14 @@ export default function PlayerModal({ currentProgram }) {
             </>
           ) : (
             <>
-              <Box sx={{}}>
-                <Timeit onChange={handleChange} />
-              </Box>
+              {/* <Timeit onChange={handleChange} /> */}
+              <TimePicker
+                handlePlusBtn={handlePlusBtn}
+                handleMinusBtn={handleMinusBtn}
+                handleInputChange={handleInputChange}
+                pickedTime={pickedTime}
+              />
+
               <Box
                 sx={{
                   display: "flex",
