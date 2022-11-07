@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 
 // MUI
 import { ThemeProvider } from "@mui/material/styles";
+import { Alert, Fade } from "@mui/material";
 import theme from "./app/theme";
 
 // Redux
@@ -34,7 +35,9 @@ function App() {
   // fetch data from state
   const { user } = useSelector((state) => state.user);
   const { favorites } = useSelector((state) => state.programs);
-  const { isLoading } = useSelector((state) => state.modals);
+  const { isLoading, alertOpen, alertMessage } = useSelector(
+    (state) => state.modals
+  );
 
   const dispatch = useDispatch();
 
@@ -94,7 +97,23 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      {/* loading screen */}
       <Loading open={isLoading} />
+      {/* alert in case of error */}
+      <Fade in={alertOpen}>
+        <Alert
+          severity="error"
+          sx={{
+            position: "fixed",
+            top: "3rem",
+            left: "50%",
+            zIndex: "1400",
+            transform: "translateX(-50%)",
+          }}
+        >
+          {alertMessage}
+        </Alert>
+      </Fade>
       <Router>
         {
           // Show Welcome screen only if not logged in
@@ -102,7 +121,7 @@ function App() {
             <>
               <ScrollToTop />
               <Nav />
-              <Waves/>
+              <Waves />
               <Routes>
                 <Route path="/" element={<MeditateScreen />} />
                 <Route path="/favorites" element={<FavoriteScreen />} />

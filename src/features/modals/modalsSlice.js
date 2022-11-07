@@ -5,6 +5,8 @@ const initialState = {
   playerOpen: false,
   signOutModalOpen: false,
   isLoading: true,
+  alertOpen: false,
+  alertMessage: "",
 };
 
 export const modalSlice = createSlice({
@@ -39,6 +41,14 @@ export const modalSlice = createSlice({
     closeSignOutModal: (state) => {
       state.signOutModalOpen = false;
     },
+    openAlert: (state, action) => {
+      state.alertMessage = action.payload
+      state.alertOpen = true;
+    },
+
+    closeAlert: (state) => {
+      state.alertOpen = false;
+    },
   },
 });
 
@@ -51,5 +61,7 @@ export const {
   closeSignOutModal,
   openLoading,
   closeLoading,
+  openAlert,
+  closeAlert,
 } = modalSlice.actions;
 export default modalSlice.reducer;

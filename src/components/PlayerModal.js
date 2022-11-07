@@ -11,15 +11,15 @@ import {
   useTheme,
   Slider,
   Stack,
-  TextField,
+  Alert
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { closePlayer } from "../features/modals/modalsSlice";
+import { closePlayer, openAlert, closeAlert } from "../features/modals/modalsSlice";
 
 // My imports
 import Timer from "./Timer";
 import Waves from "./GradientWaves";
-
+import ReactHowler from 'react-howler'
 // Icons
 import CloseIcon from "@mui/icons-material/Close";
 import { BsFillPlayFill, BsPauseFill, BsStopFill } from "react-icons/bs";
@@ -41,7 +41,7 @@ const style = {
   justifyContent: "center",
   minHeight: { xs: "100vh", sm: "fit-content" },
   maxWidth: { sm: "700px" },
-  minWidth:{sm: "600px"},
+  minWidth: { sm: "600px" },
   aspectRatio: { sm: "16/9" },
   alignItems: "center",
   boxSizing: "border-box",
@@ -78,7 +78,6 @@ export default function PlayerModal({ currentProgram }) {
   const [reset, setReset] = React.useState(false);
   const [volume, setVolume] = React.useState(100);
 
-  
   // functions to select value of time picker
   function handlePlusBtn() {
     setPickedTime((prev) => +prev + 1);
@@ -87,18 +86,11 @@ export default function PlayerModal({ currentProgram }) {
     if (pickedTime == 0) return;
     setPickedTime((prev) => +prev - 1);
   }
-  
+
   function handleInputChange(e) {
     setPickedTime(e.target.value);
   }
-
-  // ref for the audio element
-  const audioRef = React.useRef(null);
-  
-  if (audioRef.current) {
-    audioRef.current.volume = volume / 100;
-  }
-
+ 
   // function to change volume state
   const handleSliderChange = (event, newValue) => {
     setVolume(newValue);
@@ -120,7 +112,7 @@ export default function PlayerModal({ currentProgram }) {
       open={playerOpen}
       onClose={() => {
         dispatch(closePlayer());
-        audioRef.current.pause();
+        // audioRef.current.pause();
       }}
       closeAfterTransition
       BackdropComponent={Backdrop}
@@ -144,12 +136,19 @@ export default function PlayerModal({ currentProgram }) {
             size="large"
             onClick={() => {
               dispatch(closePlayer());
-              audioRef.current.pause();
+              // audioRef.current.pause();
             }}
           >
             <CloseIcon fontSize="large" />
           </IconButton>
-          <audio ref={audioRef} src={currentProgram?.soundUrl} loop></audio>
+
+            {/* Audio component with react howler */}
+            <ReactHowler 
+            src={currentProgram.soundUrl}
+            playing={isPlaying}
+            loop={true}
+            volume={volume / 100}
+            />
           {/* if session has started show timer with player buttons, if not then show time picker */}
           {isStarted ? (
             <>
@@ -161,7 +160,6 @@ export default function PlayerModal({ currentProgram }) {
                 handleEnd={() => {
                   setIsPlaying(false);
 
-                  audioRef.current.pause();
                 }}
               />
               <Box
@@ -182,7 +180,6 @@ export default function PlayerModal({ currentProgram }) {
                     onClick={() => {
                       setIsPlaying(false);
                       setReset(!reset);
-                      audioRef.current.pause();
                     }}
                   >
                     <MdRefresh size="24px" />
@@ -196,7 +193,7 @@ export default function PlayerModal({ currentProgram }) {
                       sx={{ ...playerButtonStyle, p: "1.5rem" }}
                       onClick={() => {
                         setIsPlaying(false);
-                        audioRef.current.pause();
+
                       }}
                     >
                       <BsPauseFill size="30px" />
@@ -208,7 +205,6 @@ export default function PlayerModal({ currentProgram }) {
                       sx={{ ...playerButtonStyle, p: "1.5rem" }}
                       onClick={() => {
                         setIsPlaying(true);
-                        audioRef.current.play();
                       }}
                     >
                       <BsFillPlayFill size="30px" />
@@ -223,8 +219,6 @@ export default function PlayerModal({ currentProgram }) {
                       setIsPlaying(false);
                       setIsStarted(!isStarted);
                       setReset(!reset);
-                      audioRef.current.pause();
-                      audioRef.current.currentTime = 0;
                     }}
                   >
                     <BsStopFill size="24px" />
@@ -282,10 +276,14 @@ export default function PlayerModal({ currentProgram }) {
                   color="secondary"
                   sx={buttonStyle}
                   onClick={() => {
-                    if (pickedTime !== 0) {
+                    if (pickedTime > 0 && pickedTime < 61) {
                       setIsPlaying(true);
                       setIsStarted(true);
-                      audioRef.current.play();
+                    } else {
+                      dispatch(openAlert("Please enter a number between 1 and 60"))
+                      setTimeout(() => {
+                        dispatch(closeAlert())
+                      }, 2000);
                     }
                   }}
                 >
@@ -296,8 +294,10 @@ export default function PlayerModal({ currentProgram }) {
               </Box>
             </>
           )}
+
         </Box>
       </Fade>
+
     </Modal>
   );
 }

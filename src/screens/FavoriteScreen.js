@@ -7,8 +7,7 @@ import { Box, Container, CardContent, Typography, Card } from "@mui/material";
 import { useSelector } from "react-redux";
 
 // My imports
-import { programs } from "../app/data";
-import Waves from "../components/GradientWaves";
+import { programs } from "../data";
 import Cards from "../components/Cards";
 import PlayerModal from "../components/PlayerModal";
 

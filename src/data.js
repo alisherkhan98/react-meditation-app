@@ -8,14 +8,14 @@ import {
   BsWater,
 } from "react-icons/bs";
 
-import fire from "../assets/sounds/fireplace.mp3";
-import rain from "../assets/sounds/rain.mp3";
-import forest from "../assets/sounds/forest.mp3";
-import river from "../assets/sounds/river.mp3";
-import city from "../assets/sounds/city.mp3";
-import storm from "../assets/sounds/storm.mp3";
-import sea from "../assets/sounds/sea.mp3";
-import snow from "../assets/sounds/snow.mp3";
+import fire from "./assets/sounds/fireplace.mp3";
+import rain from "./assets/sounds/rain.mp3";
+import forest from "./assets/sounds/forest.mp3";
+import river from "./assets/sounds/river.mp3";
+import city from "./assets/sounds/city.mp3";
+import storm from "./assets/sounds/storm.mp3";
+import sea from "./assets/sounds/sea.mp3";
+import snow from "./assets/sounds/snow.mp3";
 
 export const programs = [
   {
