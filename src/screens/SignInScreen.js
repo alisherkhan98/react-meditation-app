@@ -72,7 +72,7 @@ function SignInScreen() {
     .catch((error) => {
       dispatch(closeLoading());
       isAborted = true;
-      dispatch(openAlert(error.message));
+      dispatch(openAlert(error.code));
       setTimeout(() => {
         dispatch(closeAlert());
       }, 2000);

@@ -106,7 +106,7 @@ function SignUpScreen() {
         .catch((error) => {
           isAborted = true
           dispatch(closeLoading());
-          dispatch(openAlert(error.message));
+          dispatch(openAlert(error.code));
           setTimeout(() => {
             dispatch(closeAlert());
           }, 2000);
