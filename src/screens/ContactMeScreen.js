@@ -10,6 +10,7 @@ import {
   TextField,
   Stack,
   Button,
+  Link,
 } from "@mui/material";
 
 // redux
@@ -18,6 +19,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 // emailjs
 import { send } from "emailjs-com";
+
+// icons
+import { FaLinkedin, FaGithub, FaDiscord, FaTwitter } from "react-icons/fa";
 
 const textFieldStyle = {
   borderRadius: "5px",
@@ -32,7 +36,7 @@ const textFieldStyle = {
 const buttonStyle = {
   padding: "1rem 2rem",
   width: "90%",
-  maxWidth: 250,
+  maxWidth: 200,
   borderRadius: "2rem",
   mx: "auto",
   fontWeight: 700,
@@ -65,11 +69,13 @@ function ContactMeScreen() {
   const onSubmit = (e) => {
     for (let input in toSend) {
       if (!toSend[input]) {
-        dispatch(openAlert({message:"Please complete the form", severity:"error"}));
+        dispatch(
+          openAlert({ message: "Please complete the form", severity: "error" })
+        );
         setTimeout(() => {
           dispatch(closeAlert());
         }, 2000);
-        return
+        return;
       }
     }
     let isAborted = false;
@@ -84,7 +90,7 @@ function ContactMeScreen() {
         }, 2000);
       })
       .then((response) => {
-        if (isAborted) return
+        if (isAborted) return;
         dispatch(
           openAlert({
             message: "Message successfully sent",
@@ -136,13 +142,15 @@ function ContactMeScreen() {
           {/* form to send message */}
           <Card
             component="form"
-            
             sx={{
               padding: 3,
+              border: "2px solid ",
+              borderColor: "primary.main",
               mx: "auto",
               width: "100%",
               maxWidth: "500px",
               boxSizing: "border-box",
+              marginBottom: 5,
             }}
           >
             <Stack gap={3} alignItems="center" my={3}>
@@ -176,13 +184,57 @@ function ContactMeScreen() {
                 sx={buttonStyle}
                 variant="contained"
                 color="secondary"
-            
                 onClick={onSubmit}
               >
                 Send
               </Button>
             </Stack>
           </Card>
+
+          {/* socials */}
+          <Box
+            sx={{
+              padding: 3,
+              mx: "auto",
+              width: "100%",
+              maxWidth: "500px",
+              boxSizing: "border-box",
+            }}
+          >
+            <Typography variant="subtitle1" textAlign="center">
+              Or you can reach out on any of my socials
+            </Typography>
+            <Stack direction="row" justifyContent="center">
+              <Link
+                color="secondary.main"
+                m={2}
+                href="https://www.linkedin.com/in/ali-sher-khan-1331a8205/"
+              >
+                <FaLinkedin size="24px" />
+              </Link>
+              <Link
+                color="secondary.main"
+                m={2}
+                href="https://discordapp.com/users/Metaxa#5113"
+              >
+                <FaDiscord size="24px" />
+              </Link>
+              <Link
+                m={2}
+                color="secondary.main"
+                href="https://discordapp.com/users/Metaxa#5113"
+              >
+                <FaGithub size="24px" />
+              </Link>
+              <Link
+                m={2}
+                color="secondary.main"
+                href="https://twitter.com/AliSher03212351"
+              >
+                <FaTwitter size="24px" />
+              </Link>
+            </Stack>
+          </Box>
         </Container>
       </Box>
     </>

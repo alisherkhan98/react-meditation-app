@@ -133,7 +133,8 @@ function SettingsDrawer() {
               sx={{
                 justifyContent: "space-between",
                 backgroundColor: theme.palette.primary.light,
-                padding: 3,
+                px: 3,
+                py:4,
                 borderRadius: "10px",
                 "&:hover" :{
                 backgroundColor: theme.palette.primary.main,
