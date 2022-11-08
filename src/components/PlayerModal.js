@@ -280,7 +280,7 @@ export default function PlayerModal({ currentProgram }) {
                       setIsPlaying(true);
                       setIsStarted(true);
                     } else {
-                      dispatch(openAlert("Please enter a number between 1 and 60"))
+                      dispatch(openAlert({message: "Please enter a number between 1 and 60", severity:"error"}))
                       setTimeout(() => {
                         dispatch(closeAlert())
                       }, 2000);
