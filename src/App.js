@@ -6,7 +6,7 @@ import { Alert, Fade } from "@mui/material";
 import theme from "./app/theme";
 
 // Redux
-import { login, logout } from "./features/auth/userSlice";
+import { login, logout, loginAsGuest } from "./features/auth/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { setInitialFavorites } from "./features/programs/programsSlice";
 import { closeLoading } from "./features/modals/modalsSlice";
@@ -38,6 +38,7 @@ function App() {
   const { isLoading, alertOpen, alertMessage, alertSeverity } = useSelector(
     (state) => state.modals
   );
+  const [isAnonymous, setIsAnonymous] = React.useState(false);
 
   const dispatch = useDispatch();
 
@@ -46,27 +47,42 @@ function App() {
     const unsubscribe = onAuthStateChanged(auth, (newUser) => {
       if (newUser) {
         console.log(newUser);
-        // logging in with data in firestore
-        getDoc(doc(db, "users", newUser.uid))
-          .then((docSnap) => {
-            dispatch(
-              login({
-                uid: newUser.uid,
-                ...docSnap.data(),
-              })
-            );
 
-            // set remembered favorites at start
-            if (docSnap.data().favorites) {
-              dispatch(setInitialFavorites(docSnap.data().favorites));
-            }
-            return docSnap;
-          })
-          .then(() => {
-            setTimeout(() => {
-              dispatch(closeLoading());
-            }, 1500);
-          });
+        if (newUser.isAnonymous === true) {
+          setIsAnonymous(true);
+          dispatch(loginAsGuest());
+          setTimeout(() => {
+            dispatch(closeLoading());
+          }, 1500);
+        } else {
+          // logging in with data in firestore
+          getDoc(doc(db, "users", newUser.uid))
+            .then((docSnap) => {
+              dispatch(
+                login({
+                  uid: newUser.uid,
+                  ...docSnap.data(),
+                })
+              );
+
+              // set remembered favorites at start
+              if (docSnap.data().favorites) {
+                dispatch(setInitialFavorites(docSnap.data().favorites));
+              }
+              return docSnap;
+            })
+            .then(() => {
+              setTimeout(() => {
+                dispatch(closeLoading());
+              }, 1500);
+            })
+            .catch((err) => {
+              console.log(err);
+              setTimeout(() => {
+                dispatch(closeLoading());
+              }, 1500);
+            });
+        }
       } else {
         dispatch(logout());
         setTimeout(() => {
@@ -84,7 +100,7 @@ function App() {
 
   // update favorites in firestore when modified
   useEffect(() => {
-    if (user) {
+    if (user && !isAnonymous) {
       setDoc(
         doc(db, "users", user.uid),
         {
@@ -94,7 +110,6 @@ function App() {
       );
     }
   }, [favorites]);
-
   return (
     <ThemeProvider theme={theme}>
       {/* loading screen */}

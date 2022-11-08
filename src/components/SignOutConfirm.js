@@ -8,8 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   closeSignOutModal,
   openLoading,
+  closeLoading,
   closeSettingsDrawer,
+  openAlert,
+  closeAlert,
 } from "../features/modals/modalsSlice";
+import { logout } from "../features/auth/userSlice";
 
 // firebase
 import { signOut } from "firebase/auth";
@@ -27,14 +31,33 @@ const buttonStyle = {
 function SignOutConfirm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const {user} = useSelector((state)=>state.user)
   const { signOutModalOpen } = useSelector((state) => state.modals);
 
   function handleSignOut() {
     dispatch(openLoading());
-    dispatch(closeSignOutModal())
+    dispatch(closeSignOutModal());
     dispatch(closeSettingsDrawer());
     navigate("/");
-    signOut(auth);
+
+    signOut(auth)
+      .catch((err) => {
+        dispatch(
+          openAlert({
+            message: "Ther was an error signing out. Try again",
+            severity: "error",
+          })
+        );
+        setTimeout(() => {
+          dispatch(closeAlert());
+        }, 2000);
+      })
+      .then(() => {
+        setTimeout(() => {
+          dispatch(closeLoading());
+        }, 1500);
+      });
   }
   return (
     <Dialog
@@ -50,11 +73,10 @@ function SignOutConfirm() {
 
       <DialogActions>
         <Button
-          sx={{...buttonStyle, mr:2}}
+          sx={{ ...buttonStyle, mr: 1 }}
           onClick={handleSignOut}
           color="secondary"
           variant="contained"
-          
         >
           Sign Out
         </Button>

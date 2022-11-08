@@ -4,8 +4,15 @@ import { Box, Typography, Button, Grid, ButtonBase } from "@mui/material";
 
 // Redux
 import { useDispatch } from "react-redux";
-import { loginAsGuest } from "../features/auth/userSlice";
+import {
+  openLoading,
+  openAlert,
+  closeAlert,
+} from "../features/modals/modalsSlice";
 
+// firebase
+import { signInAnonymously } from "firebase/auth";
+import { auth } from "../app/firebaseConfig";
 
 // Router
 import { Link, useNavigate } from "react-router-dom";
@@ -40,6 +47,30 @@ const containerStyle = {
 function WelcomeScreen() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleGuestLogin = () => {
+
+    let isAborted = false
+
+    signInAnonymously(auth)
+      .catch((error) => {
+        isAborted = true;
+        dispatch(
+          openAlert({
+            message: "An error occured. Please try again.",
+            severity: "error",
+          })
+        );
+        setTimeout(() => {
+          dispatch(closeAlert());
+        }, 2000);
+      })
+      .then((user) => {
+        if (isAborted) return;
+        dispatch(openLoading());
+        navigate("/");
+      });
+  };
   return (
     <>
       <Box sx={containerStyle}>
@@ -55,9 +86,7 @@ function WelcomeScreen() {
               sx={buttonStyle}
               color="secondary"
               variant="contained"
-              onClick={() => {
-                dispatch(loginAsGuest());
-              }}
+              onClick={handleGuestLogin}
             >
               Try as Guest
             </Button>

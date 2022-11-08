@@ -7,7 +7,7 @@ const initialState = {
   isLoading: true,
   alertOpen: false,
   alertMessage: "",
-  alertSeverity:""
+  alertSeverity:"error"
 };
 
 export const modalSlice = createSlice({

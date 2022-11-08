@@ -1,12 +1,14 @@
 import { ImFire } from "react-icons/im";
 import { FaCity } from "react-icons/fa";
 import {
-  BsCloudRain,
+  BsFillCloudRainFill,
   BsTreeFill,
-  BsCloudLightningRain,
+  BsFillCloudLightningRainFill,
   BsSnow2,
   BsWater,
+  
 } from "react-icons/bs";
+import { MdNightsStay } from "react-icons/md";
 
 import fire from "./assets/sounds/fireplace.mp3";
 import rain from "./assets/sounds/rain.mp3";
@@ -16,6 +18,7 @@ import city from "./assets/sounds/city.mp3";
 import storm from "./assets/sounds/storm.mp3";
 import sea from "./assets/sounds/sea.mp3";
 import snow from "./assets/sounds/snow.mp3";
+import night from "./assets/sounds/summer-night.mp3";
 
 export const programs = [
   {
@@ -26,7 +29,7 @@ export const programs = [
   },
   {
     name: "Rain",
-    icon: <BsCloudRain className="programIcon" />,
+    icon: <BsFillCloudRainFill  className="programIcon" />,
     color: "#54cbc5",
     soundUrl: rain,
   },
@@ -56,7 +59,7 @@ export const programs = [
   },
   {
     name: "Storm",
-    icon: <BsCloudLightningRain className="programIcon" />,
+    icon: <BsFillCloudLightningRainFill className="programIcon" />,
     color: "#a8a795",
     soundUrl: storm,
   },
@@ -65,5 +68,11 @@ export const programs = [
     icon: <BsWater className="programIcon" />,
     color: "#639aff",
     soundUrl: sea,
+  },
+  {
+    name: "Summer Night",
+    icon: <MdNightsStay className="programIcon" />,
+    color: "#6b6c71",
+    soundUrl: night,
   },
 ];

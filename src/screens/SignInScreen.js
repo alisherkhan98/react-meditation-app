@@ -23,7 +23,6 @@ import { AiFillHome } from "react-icons/ai";
 // redux
 import {
   openLoading,
-  closeLoading,
   openAlert,
   closeAlert,
 } from "../features/modals/modalsSlice";
@@ -70,7 +69,6 @@ function SignInScreen() {
     // firebase sign in
     signInWithEmailAndPassword(auth, credentials.email, credentials.password)
     .catch((error) => {
-      dispatch(closeLoading());
       isAborted = true;
       dispatch(openAlert({message: error.code, severity:"error"}));
       setTimeout(() => {
@@ -131,7 +129,6 @@ function SignInScreen() {
           variant="filled"
           onChange={handleChange}
           value={credentials.email}
-          autocomplete=""
         />
         <TextField
           sx={textFieldStyle}
