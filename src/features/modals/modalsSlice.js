@@ -7,6 +7,7 @@ const initialState = {
   isLoading: true,
   alertOpen: false,
   alertMessage: "",
+  alertSeverity:""
 };
 
 export const modalSlice = createSlice({
@@ -42,7 +43,8 @@ export const modalSlice = createSlice({
       state.signOutModalOpen = false;
     },
     openAlert: (state, action) => {
-      state.alertMessage = action.payload
+      state.alertMessage = action.payload.message
+      state.alertSeverity = action.payload.severity
       state.alertOpen = true;
     },
 

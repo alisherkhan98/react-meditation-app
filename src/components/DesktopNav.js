@@ -58,8 +58,8 @@ function DesktopNav() {
   // User Menu Links
   const settings = [
     {
-      name: "Profile",
-      handleClick: () => navigate("/profile"),
+      name: "Contact me",
+      handleClick: () => navigate("/contact-me"),
     },
     {
       name: "Sign Out",

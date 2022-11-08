@@ -19,7 +19,10 @@ import { useNavigate } from "react-router-dom";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { closeSettingsDrawer, openSignOutModal } from "../features/modals/modalsSlice";
+import {
+  closeSettingsDrawer,
+  openSignOutModal,
+} from "../features/modals/modalsSlice";
 
 // Icons
 import CloseIcon from "@mui/icons-material/Close";
@@ -32,21 +35,31 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import Waves from "./GradientWaves";
 import SignOutConfirm from "./SignOutConfirm";
 
-
 function SettingsDrawer() {
   const theme = useTheme();
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { settingsDrawerOpen } = useSelector((state) => state.modals);
   const { user } = useSelector((state) => state.user);
 
   const settings = [
-    { name: "Profile", handleClick: () => {} },
-    { name: "Info", handleClick: () => {} },
+    {
+      name: "Contact me",
+      handleClick: () => {
+        navigate("/contact-me");
+        dispatch(closeSettingsDrawer());
+      },
+    },
+    {
+      name: "Info",
+      handleClick: () => {
+        dispatch(closeSettingsDrawer());
+      },
+    },
     {
       name: "Sign Out",
       handleClick: () => {
-        dispatch(openSignOutModal())
+        dispatch(openSignOutModal());
       },
     },
   ];
@@ -90,7 +103,6 @@ function SettingsDrawer() {
             fontSize: 40,
             mb: 2,
             backgroundColor: theme.palette.secondary.light,
-            
           }}
           alt={user.name}
           src="/static/images/avatar/2.jpg"
@@ -120,9 +132,9 @@ function SettingsDrawer() {
                 padding: 3,
                 borderRadius: "10px",
               }}
-              onClick={()=>{
+              onClick={() => {
                 // dispatch(closeSettingsDrawer())
-                setting.handleClick()
+                setting.handleClick();
               }}
             >
               <Box sx={{ display: "flex" }}>
@@ -154,7 +166,7 @@ function SettingsDrawer() {
   return (
     <Drawer color="primary" anchor="right" open={settingsDrawerOpen}>
       {list()}
-      <SignOutConfirm/>
+      <SignOutConfirm />
     </Drawer>
   );
 }

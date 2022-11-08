@@ -27,7 +27,7 @@ function MeditateScreen() {
       {/* Background svg */}
 
       {/* Main */}
-      <Box sx={{ py: { xs: "15%", sm: "10%" }, px: 3, minHeight: "100vh" }}>
+      <Box sx={{ py: { xs: "15%", sm: "10%" }, px: 3, minHeight: "100vh", boxSizing:"border-box" }}>
         <Container maxWidth="lg">
           {/* Heading */}
           <Typography

@@ -78,7 +78,7 @@ function SignUpScreen() {
     e.preventDefault();
     for (let input in credentials) {
       if (!credentials[input]) {
-        dispatch(openAlert("Please complete the form"));
+        dispatch(openAlert({message:"Please complete the form", severity:"error"}));
         setTimeout(() => {
           dispatch(closeAlert());
         }, 2000);
@@ -105,8 +105,7 @@ function SignUpScreen() {
         })
         .catch((error) => {
           isAborted = true
-          dispatch(closeLoading());
-          dispatch(openAlert(error.code));
+          dispatch(openAlert({message: error.code, severity:"error"}));
           setTimeout(() => {
             dispatch(closeAlert());
           }, 2000);

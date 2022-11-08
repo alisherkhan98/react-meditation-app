@@ -30,6 +30,7 @@ function TimePicker({
         alignItems:"center",
         flexDirection:"column"
       }}
+      onSubmit={(e)=>e.preventDefault()}
     >
       <Stack direction="row" alignItems="center" gap={1}>
         <Button
@@ -42,6 +43,7 @@ function TimePicker({
         </Button>
 
         <TextField
+          inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', title:"Enter a number" }}
           color="secondary"
           variant="outlined"
           sx={{
@@ -51,7 +53,6 @@ function TimePicker({
             "& input": { textAlign: "center", fontSize:"2rem", },
           }}
           value={pickedTime}
-          inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
           onChange={handleInputChange}
         />
         <Button

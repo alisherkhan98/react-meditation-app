@@ -23,19 +23,19 @@ import Nav from "./components/Nav";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import MeditateScreen from "./screens/MeditateScreen";
 import FavoriteScreen from "./screens/FavoriteScreen";
-import ProfileScreen from "./screens/ProfileScreen";
 import SignInScreen from "./screens/SignInScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import ScrollToTop from "./components/ScrollToTop";
 import GradientBlob from "./components/GradientBlob";
 import Loading from "./components/Loading";
 import Waves from "./components/GradientWaves";
+import ContactMeScreen from "./screens/ContactMeScreen";
 
 function App() {
   // fetch data from state
   const { user } = useSelector((state) => state.user);
   const { favorites } = useSelector((state) => state.programs);
-  const { isLoading, alertOpen, alertMessage } = useSelector(
+  const { isLoading, alertOpen, alertMessage, alertSeverity } = useSelector(
     (state) => state.modals
   );
 
@@ -99,10 +99,10 @@ function App() {
     <ThemeProvider theme={theme}>
       {/* loading screen */}
       <Loading open={isLoading} />
-      {/* alert in case of error */}
+      {/* alert in case of error or success*/}
       <Fade in={alertOpen}>
         <Alert
-          severity="error"
+          severity={alertSeverity}
           sx={{
             position: "fixed",
             top: "3rem",
@@ -125,7 +125,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<MeditateScreen />} />
                 <Route path="/favorites" element={<FavoriteScreen />} />
-                <Route path="/profile" element={<ProfileScreen />} />
+                <Route path="/contact-me" element={<ContactMeScreen />} />
               </Routes>
             </>
           ) : (

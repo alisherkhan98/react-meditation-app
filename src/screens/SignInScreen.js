@@ -72,7 +72,7 @@ function SignInScreen() {
     .catch((error) => {
       dispatch(closeLoading());
       isAborted = true;
-      dispatch(openAlert(error.code));
+      dispatch(openAlert({message: error.code, severity:"error"}));
       setTimeout(() => {
         dispatch(closeAlert());
       }, 2000);
@@ -131,6 +131,7 @@ function SignInScreen() {
           variant="filled"
           onChange={handleChange}
           value={credentials.email}
+          autocomplete=""
         />
         <TextField
           sx={textFieldStyle}
