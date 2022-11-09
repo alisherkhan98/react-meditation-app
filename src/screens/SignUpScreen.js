@@ -116,7 +116,10 @@ function SignUpScreen() {
           navigate("/");
         })
       } else {
-        alert("passwords dont match");
+        dispatch(openAlert({message:"Passwords don't match", severity:"error"}));
+        setTimeout(() => {
+          dispatch(closeAlert());
+        }, 2000);;
     }
   }
 
