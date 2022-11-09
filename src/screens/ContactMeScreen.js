@@ -23,6 +23,9 @@ import { send } from "emailjs-com";
 // icons
 import { FaLinkedin, FaGithub, FaDiscord, FaTwitter } from "react-icons/fa";
 
+// fiirebase
+import { auth } from "../app/firebaseConfig";
+
 const textFieldStyle = {
   borderRadius: "5px",
   backgroundColor: "#fff",
@@ -34,7 +37,7 @@ const textFieldStyle = {
 };
 
 const buttonStyle = {
-  padding: "1rem 2rem",
+  padding: ".5rem 1rem",
   width: "90%",
   maxWidth: 200,
   borderRadius: "2rem",
@@ -91,6 +94,16 @@ function ContactMeScreen() {
       })
       .then((response) => {
         if (isAborted) return;
+        send(
+          "service_barraza",
+          "ma_autorespond",
+          { send_to: auth.currentUser.email, to_name: user?.name },
+          "mMD3lCvskkDRCL8ir"
+        );
+      })
+      .then((response) => {
+        if (isAborted) return;
+
         dispatch(
           openAlert({
             message: "Message successfully sent",
@@ -144,8 +157,6 @@ function ContactMeScreen() {
             component="form"
             sx={{
               padding: 3,
-              border: "2px solid ",
-              borderColor: "primary.main",
               mx: "auto",
               width: "100%",
               maxWidth: "500px",
@@ -194,7 +205,6 @@ function ContactMeScreen() {
           {/* socials */}
           <Box
             sx={{
-              padding: 3,
               mx: "auto",
               width: "100%",
               maxWidth: "500px",
@@ -207,27 +217,39 @@ function ContactMeScreen() {
             <Stack direction="row" justifyContent="center">
               <Link
                 color="secondary.main"
-                m={2}
+                sx={{
+                  m: 2,
+                  mb: 0,
+                }}
                 href="https://www.linkedin.com/in/ali-sher-khan-1331a8205/"
               >
                 <FaLinkedin size="24px" />
               </Link>
               <Link
                 color="secondary.main"
-                m={2}
+                sx={{
+                  m: 2,
+                  mb: 0,
+                }}
                 href="https://discordapp.com/users/Metaxa#5113"
               >
                 <FaDiscord size="24px" />
               </Link>
               <Link
-                m={2}
+                sx={{
+                  m: 2,
+                  mb: 0,
+                }}
                 color="secondary.main"
-                href="https://discordapp.com/users/Metaxa#5113"
+                href="https://github.com/alisherkhan98"
               >
                 <FaGithub size="24px" />
               </Link>
               <Link
-                m={2}
+                sx={{
+                  m: 2,
+                  mb: 0,
+                }}
                 color="secondary.main"
                 href="https://twitter.com/AliSher03212351"
               >
