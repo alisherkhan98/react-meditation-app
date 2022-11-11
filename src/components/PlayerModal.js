@@ -11,15 +11,19 @@ import {
   useTheme,
   Slider,
   Stack,
-  Alert
+  Alert,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { closePlayer, openAlert, closeAlert } from "../redux/features/modalsSlice";
+import {
+  closePlayer,
+  openAlert,
+  closeAlert,
+} from "../redux/features/modalsSlice";
 
 // My imports
 import Timer from "./Timer";
-import Waves from "./GradientWaves";
-import ReactHowler from 'react-howler'
+import waves from "../assets/images/waves.png";
+import ReactHowler from "react-howler";
 // Icons
 import CloseIcon from "@mui/icons-material/Close";
 import { BsFillPlayFill, BsPauseFill, BsStopFill } from "react-icons/bs";
@@ -28,13 +32,13 @@ import { ImVolumeMedium } from "react-icons/im";
 import TimePicker from "./TimePicker";
 
 // Modal Box styles
+
 const style = {
   position: "absolute",
   top: { xs: 0, sm: "50%" },
   left: { xs: 0, sm: "50%" },
   transform: { sm: "translate(-50%, -50%)" },
   bgcolor: "primary.light",
-  // p: 4,
   width: { xs: "100vw", sm: "80vw" },
   display: "flex",
   flexDirection: { xs: "column", sm: "row" },
@@ -49,6 +53,10 @@ const style = {
   zIndex: 0,
   overflow: "hidden",
   outline: "none",
+  backgroundImage: `url(${waves})`,
+  backgroundSize: "100% auto",
+  backgroundPosition: "top",
+  backgroundRepeat: "no-repeat",
 };
 
 // Button styles
@@ -90,7 +98,7 @@ export default function PlayerModal({ currentProgram }) {
   function handleInputChange(e) {
     setPickedTime(e.target.value);
   }
- 
+
   // function to change volume state
   const handleSliderChange = (event, newValue) => {
     setVolume(newValue);
@@ -123,7 +131,6 @@ export default function PlayerModal({ currentProgram }) {
     >
       <Fade in={playerOpen}>
         <Box sx={style} onDoubleClick={(e) => e.preventDefault()}>
-          <Waves />
           {/* button to close player */}
           <IconButton
             sx={{
@@ -142,13 +149,13 @@ export default function PlayerModal({ currentProgram }) {
             <CloseIcon fontSize="large" />
           </IconButton>
 
-            {/* Audio component with react howler */}
-            <ReactHowler 
+          {/* Audio component with react howler */}
+          <ReactHowler
             src={currentProgram.soundUrl}
             playing={isPlaying}
             loop={true}
             volume={volume / 100}
-            />
+          />
           {/* if session has started show timer with player buttons, if not then show time picker */}
           {isStarted ? (
             <>
@@ -159,7 +166,6 @@ export default function PlayerModal({ currentProgram }) {
                 key={reset}
                 handleEnd={() => {
                   setIsPlaying(false);
-
                 }}
               />
               <Box
@@ -193,7 +199,6 @@ export default function PlayerModal({ currentProgram }) {
                       sx={{ ...playerButtonStyle, p: "1.5rem" }}
                       onClick={() => {
                         setIsPlaying(false);
-
                       }}
                     >
                       <BsPauseFill size="30px" />
@@ -280,9 +285,14 @@ export default function PlayerModal({ currentProgram }) {
                       setIsPlaying(true);
                       setIsStarted(true);
                     } else {
-                      dispatch(openAlert({message: "Please enter a number between 1 and 60", severity:"error"}))
+                      dispatch(
+                        openAlert({
+                          message: "Please enter a number between 1 and 60",
+                          severity: "error",
+                        })
+                      );
                       setTimeout(() => {
-                        dispatch(closeAlert())
+                        dispatch(closeAlert());
                       }, 2000);
                     }
                   }}
@@ -294,10 +304,8 @@ export default function PlayerModal({ currentProgram }) {
               </Box>
             </>
           )}
-
         </Box>
       </Fade>
-
     </Modal>
   );
 }

@@ -20,7 +20,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 
 // My imports
 import blob from "./assets/images/blob.png";
-
+import waves from "./assets/images/waves.png";
 import Nav from "./components/Nav";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import MeditateScreen from "./screens/MeditateScreen";
@@ -29,7 +29,6 @@ import SignInScreen from "./screens/SignInScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import ScrollToTop from "./components/ScrollToTop";
 import Loading from "./components/Loading";
-import Waves from "./components/GradientWaves";
 import ContactMeScreen from "./screens/ContactMeScreen";
 import InfoScreen from "./screens/InfoScreen";
 import InfoScreenNotLogged from "./screens/InfoScreenNotLogged";
@@ -136,17 +135,24 @@ function App() {
         {
           // Show Welcome screen only if not logged in
           user ? (
-            <>
+            <Box
+              sx={{
+                backgroundImage: `url(${waves})`,
+                backgroundSize: "100% auto",
+                backgroundPosition: "top",
+                backgroundRepeat: "no-repeat",
+              }}
+            >
+              {" "}
               <ScrollToTop />
               <Nav />
-              <Waves />
               <Routes>
                 <Route path="/" element={<MeditateScreen />} />
                 <Route path="/favorites" element={<FavoriteScreen />} />
                 <Route path="/contact-me" element={<ContactMeScreen />} />
                 <Route path="/info" element={<InfoScreen />} />
               </Routes>
-            </>
+            </Box>
           ) : (
             <Box
               sx={{

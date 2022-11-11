@@ -26,14 +26,13 @@ import {
 
 // Icons
 import CloseIcon from "@mui/icons-material/Close";
-import {BiLogOut, BiInfoCircle} from "react-icons/bi"
-import {IoMailOutline} from "react-icons/io5"
+import { BiLogOut, BiInfoCircle } from "react-icons/bi";
+import { IoMailOutline } from "react-icons/io5";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 // My imports
-import Waves from "./GradientWaves";
+import waves from "../assets/images/waves.png";
 import SignOutConfirm from "./SignOutConfirm";
-
 
 function SettingsDrawer() {
   const theme = useTheme();
@@ -49,28 +48,34 @@ function SettingsDrawer() {
         navigate("/contact-me");
         dispatch(closeSettingsDrawer());
       },
-      icon: <IoMailOutline size="24px" style={{height:"100%"}}/>
+      icon: <IoMailOutline size="24px" style={{ height: "100%" }} />,
     },
     {
       name: "Info",
       handleClick: () => {
-        navigate("/info")
+        navigate("/info");
         dispatch(closeSettingsDrawer());
       },
-      icon: <BiInfoCircle size="24px" style={{height:"100%"}}/>
+      icon: <BiInfoCircle size="24px" style={{ height: "100%" }} />,
     },
     {
       name: "Sign Out",
       handleClick: () => {
         dispatch(openSignOutModal());
       },
-      icon: <BiLogOut size="24px" style={{height:"100%"}}/>
+      icon: <BiLogOut size="24px" style={{ height: "100%" }} />,
     },
   ];
 
   const list = () => (
-    <Box>
-      <Waves height="25vh" />
+    <Box
+      sx={{
+        backgroundImage: `url(${waves})`,
+        backgroundSize: "100% 25vh",
+        backgroundPosition: "top",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <IconButton
         sx={{
           position: "absolute",
@@ -98,7 +103,6 @@ function SettingsDrawer() {
           px: 3,
           boxSizing: "border-box",
           m: 0,
-          
         }}
       >
         <Avatar
@@ -128,18 +132,18 @@ function SettingsDrawer() {
         </Typography>
 
         {settings.map((setting) => (
-          <ListItem sx={{ px: 0 , py:2}} key={setting.name}>
+          <ListItem sx={{ px: 0, py: 2 }} key={setting.name}>
             <ListItemButton
               disableRipple
               sx={{
                 justifyContent: "space-between",
                 backgroundColor: theme.palette.primary.light,
                 px: 3,
-                py:4,
+                py: 4,
                 borderRadius: "10px",
-                "&:hover" :{
-                backgroundColor: theme.palette.primary.main,
-                }
+                "&:hover": {
+                  backgroundColor: theme.palette.primary.main,
+                },
               }}
               onClick={() => {
                 setting.handleClick();
@@ -152,7 +156,7 @@ function SettingsDrawer() {
                     color: theme.palette.secondary.main,
                   }}
                 >
-                 {setting.icon}
+                  {setting.icon}
                 </ListItemIcon>
                 <Typography variant="h5" sx={{ paddingRight: "24px" }}>
                   {setting.name}
