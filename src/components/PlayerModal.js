@@ -14,7 +14,7 @@ import {
   Alert
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { closePlayer, openAlert, closeAlert } from "../features/modals/modalsSlice";
+import { closePlayer, openAlert, closeAlert } from "../redux/features/modalsSlice";
 
 // My imports
 import Timer from "./Timer";

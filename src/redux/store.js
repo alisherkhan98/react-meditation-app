@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "../features/auth/userSlice";
-import modalsReducer from "../features/modals/modalsSlice";
-import programsReducer from "../features/programs/programsSlice";
+import userReducer from "./features/userSlice";
+import modalsReducer from "./features/modalsSlice";
+import programsReducer from "./features/programsSlice";
 
 export const store = configureStore({
   reducer: {

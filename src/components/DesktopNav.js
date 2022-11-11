@@ -28,7 +28,7 @@ import { auth } from "../app/firebaseConfig";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { openSignOutModal } from "../features/modals/modalsSlice";
+import { openSignOutModal } from "../redux/features/modalsSlice";
 
 // my imports
 import SignOutConfirm from "./SignOutConfirm";
@@ -52,7 +52,7 @@ function DesktopNav() {
     },
     {
       name: "Info",
-      handleClick: () => navigate("/"),
+      handleClick: () => navigate("/info"),
     },
   ];
   // User Menu Links

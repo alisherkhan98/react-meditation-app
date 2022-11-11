@@ -12,8 +12,8 @@ import {
   closeSettingsDrawer,
   openAlert,
   closeAlert,
-} from "../features/modals/modalsSlice";
-import { logout } from "../features/auth/userSlice";
+} from "../redux/features/modalsSlice";
+import { logout } from "../redux/features/userSlice";
 
 // firebase
 import { signOut } from "firebase/auth";

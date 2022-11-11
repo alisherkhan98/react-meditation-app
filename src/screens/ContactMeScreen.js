@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 
 // redux
-import { openAlert, closeAlert } from "../features/modals/modalsSlice";
+import { openAlert, closeAlert } from "../redux/features/modalsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 // emailjs
@@ -120,7 +120,7 @@ function ContactMeScreen() {
     <>
       <Box
         sx={{
-          py: { xs: "15%", sm: "10%" },
+          py: { xs: "5rem", sm: "6rem" },
           px: 3,
           minHeight: "100vh",
           boxSizing: "border-box",

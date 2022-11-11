@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   toggleFavorites,
   setCurrentProgram,
-} from "../features/programs/programsSlice";
-import { openPlayer } from "../features/modals/modalsSlice";
+} from "../redux/features/programsSlice";
+import { openPlayer } from "../redux/features/modalsSlice";
 
 function Cards({ programs }) {
   const dispatch = useDispatch();
@@ -98,7 +98,7 @@ function Cards({ programs }) {
               </CardContent>
             </Card>
             <Typography
-              variant="subtitle2"
+              variant="subtitle1"
               color="secondary.main"
               fontWeight={600}
               pt={1}

@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 
 // MUI
 import { ThemeProvider } from "@mui/material/styles";
-import { Alert, Fade } from "@mui/material";
+import { Alert, Fade, Box } from "@mui/material";
 import theme from "./app/theme";
 
 // Redux
-import { login, logout, loginAsGuest } from "./features/auth/userSlice";
+import { login, logout, loginAsGuest } from "./redux/features/userSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { setInitialFavorites } from "./features/programs/programsSlice";
-import { closeLoading } from "./features/modals/modalsSlice";
+import { setInitialFavorites } from "./redux/features/programsSlice";
+import { closeLoading } from "./redux/features/modalsSlice";
 // Router
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -19,6 +19,8 @@ import db, { auth } from "./app/firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 // My imports
+import blob from "./assets/images/blob.png";
+
 import Nav from "./components/Nav";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import MeditateScreen from "./screens/MeditateScreen";
@@ -26,10 +28,11 @@ import FavoriteScreen from "./screens/FavoriteScreen";
 import SignInScreen from "./screens/SignInScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import ScrollToTop from "./components/ScrollToTop";
-import GradientBlob from "./components/GradientBlob";
 import Loading from "./components/Loading";
 import Waves from "./components/GradientWaves";
 import ContactMeScreen from "./screens/ContactMeScreen";
+import InfoScreen from "./screens/InfoScreen";
+import InfoScreenNotLogged from "./screens/InfoScreenNotLogged";
 
 function App() {
   // fetch data from state
@@ -141,17 +144,24 @@ function App() {
                 <Route path="/" element={<MeditateScreen />} />
                 <Route path="/favorites" element={<FavoriteScreen />} />
                 <Route path="/contact-me" element={<ContactMeScreen />} />
+                <Route path="/info" element={<InfoScreen />} />
               </Routes>
             </>
           ) : (
-            <>
-              <GradientBlob />
+            <Box
+              sx={{
+                backgroundImage: `url(${blob})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            >
               <Routes>
                 <Route path="/" element={<WelcomeScreen />} />
+                <Route path="/info" element={<InfoScreenNotLogged />} />
                 <Route path="/signin" element={<SignInScreen />} />
                 <Route path="/signup" element={<SignUpScreen />} />
               </Routes>
-            </>
+            </Box>
           )
         }
       </Router>

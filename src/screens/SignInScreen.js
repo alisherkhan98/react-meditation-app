@@ -25,7 +25,7 @@ import {
   openLoading,
   openAlert,
   closeAlert,
-} from "../features/modals/modalsSlice";
+} from "../redux/features/modalsSlice";
 import { useDispatch } from "react-redux";
 
 const buttonStyle = {
@@ -92,6 +92,7 @@ function SignInScreen() {
           alignItems: "center",
           width: "100vw",
           minHeight: "100vh",
+          
           overflow: "hidden",
           gap: 3,
           py: 5,

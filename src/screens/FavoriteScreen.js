@@ -15,14 +15,14 @@ function FavoriteScreen() {
   // filterimg favorites from programs data
   const favoriteNames = useSelector((state) => state.programs.favorites);
   const favorites = programs.filter((program) =>
-  favoriteNames.includes(program.name)
+    favoriteNames.includes(program.name)
   );
 
   const { playerOpen } = useSelector((state) => state.modals);
-  
+
   // selecting current program
   let { currentProgram } = useSelector((state) => state.programs);
- currentProgram = programs.find((program) => program.name === currentProgram);
+  currentProgram = programs.find((program) => program.name === currentProgram);
 
   return (
     <>
@@ -30,10 +30,14 @@ function FavoriteScreen() {
 
       {/* Main */}
       <Box
-        sx={{ py: { xs: "15%", sm: "10%" }, px:3, minHeight: "100vh" , boxSizing:"border-box"}}
+        sx={{
+          py: { xs: "5rem", sm: "6rem" },
+          px: 3,
+          minHeight: "100vh",
+          boxSizing: "border-box",
+        }}
       >
         <Container maxWidth="lg">
-
           {/* Heading */}
           <Typography
             sx={{ color: "secondary.main", fontWeight: 600 }}
@@ -54,7 +58,7 @@ function FavoriteScreen() {
                   color="secondary.main"
                   fontWeight={600}
                 ></Typography>
-                <Typography variant="body">
+                <Typography variant="body1">
                   You don't have any favorites yet. Go to the main page to find
                   some
                 </Typography>
@@ -65,7 +69,6 @@ function FavoriteScreen() {
       </Box>
 
       {playerOpen && <PlayerModal currentProgram={currentProgram} />}
-
     </>
   );
 }

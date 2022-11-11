@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 // My imports
 import { programs } from "../data";
-import Waves from "../components/GradientWaves";
 import Cards from "../components/Cards";
 import PlayerModal from "../components/PlayerModal";
 
@@ -20,14 +19,19 @@ function MeditateScreen() {
   let { currentProgram } = useSelector((state) => state.programs);
   currentProgram = programs.find((program) => program.name === currentProgram);
 
-  const dispatch = useDispatch();
-
   return (
     <>
       {/* Background svg */}
 
       {/* Main */}
-      <Box sx={{ py: { xs: "15%", sm: "10%" }, px: 3, minHeight: "100vh", boxSizing:"border-box" }}>
+      <Box
+        sx={{
+          py: { xs: "5rem", sm: "6rem" },
+          px: 3,
+          minHeight: "100vh",
+          boxSizing: "border-box",
+        }}
+      >
         <Container maxWidth="lg">
           {/* Heading */}
           <Typography
@@ -38,16 +42,16 @@ function MeditateScreen() {
             Hi, {user?.name}! Ready to relax?
           </Typography>
 
-          <Card sx={{ marginBottom: "20px" }}>
+          <Card sx={{ marginBottom: 5 }}>
             <CardContent sx={{ margin: "auto" }}>
               <Typography
-                variant="subtitle1"
+                variant="h6"
                 color="secondary.main"
                 fontWeight={600}
               >
                 Getting started
               </Typography>
-              <Typography variant="body">
+              <Typography variant="body1">
                 Choose one of the following programs, set the timer and you're
                 good to go
               </Typography>
@@ -55,7 +59,7 @@ function MeditateScreen() {
           </Card>
 
           <Typography
-            variant="subtitle1"
+            variant="h6"
             color="secondary.main"
             fontWeight={600}
           >

@@ -22,7 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   closeSettingsDrawer,
   openSignOutModal,
-} from "../features/modals/modalsSlice";
+} from "../redux/features/modalsSlice";
 
 // Icons
 import CloseIcon from "@mui/icons-material/Close";
@@ -54,6 +54,7 @@ function SettingsDrawer() {
     {
       name: "Info",
       handleClick: () => {
+        navigate("/info")
         dispatch(closeSettingsDrawer());
       },
       icon: <BiInfoCircle size="24px" style={{height:"100%"}}/>

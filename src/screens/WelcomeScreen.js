@@ -1,6 +1,13 @@
 import React from "react";
 // MUI
-import { Box, Typography, Button, Grid, ButtonBase } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  Grid,
+  IconButton,
+  useTheme,
+} from "@mui/material";
 
 // Redux
 import { useDispatch } from "react-redux";
@@ -8,7 +15,7 @@ import {
   openLoading,
   openAlert,
   closeAlert,
-} from "../features/modals/modalsSlice";
+} from "../redux/features/modalsSlice";
 
 // firebase
 import { signInAnonymously } from "firebase/auth";
@@ -17,6 +24,11 @@ import { auth } from "../app/firebaseConfig";
 // Router
 import { Link, useNavigate } from "react-router-dom";
 
+// icons
+import { BiInfoCircle } from "react-icons/bi";
+
+// my imports
+import blob from "../assets/images/blob.png"
 // Inline Styles
 const buttonStyle = {
   padding: "1rem 2rem",
@@ -38,8 +50,9 @@ const containerStyle = {
   alignItems: "center",
   width: "100vw",
   minHeight: "100vh",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
+  // backgroundImage:`url(${blob})`,
+  // backgroundSize: "cover",
+  // backgroundPosition: "center",
   overflow: "hidden",
 };
 
@@ -47,10 +60,9 @@ const containerStyle = {
 function WelcomeScreen() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const theme = useTheme();
   const handleGuestLogin = () => {
-
-    let isAborted = false
+    let isAborted = false;
 
     signInAnonymously(auth)
       .catch((error) => {
@@ -74,7 +86,19 @@ function WelcomeScreen() {
   return (
     <>
       <Box sx={containerStyle}>
-        {/* Background svg */}
+        <IconButton
+          sx={{
+            width: "fit-content",
+            position: "absolute",
+            top: 20,
+            left: 20,
+            zIndex: 10,
+            color: theme.palette.secondary.main,
+          }}
+          onClick={() => navigate("/info")}
+        >
+          <BiInfoCircle size="40px" />
+        </IconButton>
         <Typography mt={5} mb={10} variant="h2">
           Take a break.
           <br /> Meditate

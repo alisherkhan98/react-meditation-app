@@ -24,7 +24,7 @@ import {
   closeLoading,
   openAlert,
   closeAlert,
-} from "../features/modals/modalsSlice";
+} from "../redux/features/modalsSlice";
 import { useDispatch } from "react-redux";
 
 const buttonStyle = {

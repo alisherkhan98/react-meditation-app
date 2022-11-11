@@ -10,7 +10,7 @@ import { GiLotus } from "react-icons/gi";
 
 // Redux
 import { useDispatch } from "react-redux";
-import { openSettingsDrawer } from "../features/modals/modalsSlice";
+import { openSettingsDrawer } from "../redux/features/modalsSlice";
 
 // Router
 import { useNavigate } from "react-router-dom";
