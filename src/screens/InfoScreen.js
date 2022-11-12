@@ -165,7 +165,7 @@ function InfoScreen() {
         {/* requirements */}
         <Grid container sx={{ mb: { md: 3 } }}>
           <Grid item xs={12} md={7}>
-            <Card sx={{ p: 2, m: { md: 2 }, mt: 3 }}>
+            <Card sx={{ p: 2, m: { md: 2 } }}>
               <CardContent>
                 <Typography
                   sx={{
