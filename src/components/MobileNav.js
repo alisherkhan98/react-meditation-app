@@ -4,25 +4,30 @@ import React from "react";
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 
 // Icons
-import SettingsIcon from "@mui/icons-material/Settings";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
 import { GiLotus } from "react-icons/gi";
+import { TfiMoreAlt } from "react-icons/tfi";
 
 // Redux
 import { useDispatch } from "react-redux";
-import { openSettingsDrawer } from "../redux/features/modalsSlice";
+import { openMoreDrawer } from "../redux/features/modalsSlice";
 
 // Router
 import { useNavigate } from "react-router-dom";
 
 // My imports
-import SettingsDrawer from "./SettingsDrawer";
+import MoreDrawer from "./MoreDrawer";
 
 function MobileNav() {
   const [value, setValue] = React.useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // function to show "More as selected when needed"
+  function selectMore () {
+    setValue(2)
+  }
+  
   return (
     <>
       <Paper
@@ -49,7 +54,7 @@ function MobileNav() {
                 navigate("/favorites");
                 break;
               case 2:
-                dispatch(openSettingsDrawer());
+                dispatch(openMoreDrawer());
                 break;
               default:
                 break;
@@ -64,10 +69,10 @@ function MobileNav() {
             label="Favorites"
             icon={<MdOutlineFavoriteBorder size="24px" />}
           />
-          <BottomNavigationAction label="Settings" icon={<SettingsIcon />} />
+          <BottomNavigationAction label="More" icon={<TfiMoreAlt size="24px"/>} />
         </BottomNavigation>
       </Paper>
-      <SettingsDrawer />
+      <MoreDrawer selectMore={selectMore}/>
     </>
   );
 }

@@ -24,7 +24,7 @@ import { useNavigate } from "react-router-dom";
 
 // Firebase
 import { signOut } from "firebase/auth";
-import { auth } from "../app/firebaseConfig";
+import { auth } from "../firebase/firebaseConfig";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";

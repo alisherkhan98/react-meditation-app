@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  settingsDrawerOpen: false,
+  moreDrawerOpen: false,
   playerOpen: false,
   signOutModalOpen: false,
   isLoading: true,
@@ -14,12 +14,12 @@ export const modalSlice = createSlice({
   name: "modals",
   initialState,
   reducers: {
-    openSettingsDrawer: (state) => {
-      state.settingsDrawerOpen = true;
+    openMoreDrawer: (state) => {
+      state.moreDrawerOpen = true;
     },
 
-    closeSettingsDrawer: (state) => {
-      state.settingsDrawerOpen = false;
+    closeMoreDrawer: (state) => {
+      state.moreDrawerOpen = false;
     },
     openPlayer: (state) => {
       state.playerOpen = true;
@@ -55,8 +55,8 @@ export const modalSlice = createSlice({
 });
 
 export const {
-  openSettingsDrawer,
-  closeSettingsDrawer,
+  openMoreDrawer,
+  closeMoreDrawer,
   openPlayer,
   closePlayer,
   openSignOutModal,

@@ -24,7 +24,7 @@ import { send } from "emailjs-com";
 import { FaLinkedin, FaGithub, FaDiscord, FaTwitter } from "react-icons/fa";
 
 // fiirebase
-import { auth } from "../app/firebaseConfig";
+import { auth } from "../firebase/firebaseConfig";
 
 const textFieldStyle = {
   borderRadius: "5px",

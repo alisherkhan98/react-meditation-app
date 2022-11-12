@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import {
-  closeSettingsDrawer,
+  closeMoreDrawer,
   openSignOutModal,
 } from "../redux/features/modalsSlice";
 
@@ -34,19 +34,20 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import waves from "../assets/images/waves.png";
 import SignOutConfirm from "./SignOutConfirm";
 
-function SettingsDrawer() {
+function MoreDrawer({selectMore}) {
   const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { settingsDrawerOpen } = useSelector((state) => state.modals);
+  const { moreDrawerOpen } = useSelector((state) => state.modals);
   const { user } = useSelector((state) => state.user);
 
-  const settings = [
+  const moreButtons = [
     {
       name: "Contact me",
       handleClick: () => {
         navigate("/contact-me");
-        dispatch(closeSettingsDrawer());
+        selectMore()
+        dispatch(closeMoreDrawer());
       },
       icon: <IoMailOutline size="24px" style={{ height: "100%" }} />,
     },
@@ -54,7 +55,8 @@ function SettingsDrawer() {
       name: "Info",
       handleClick: () => {
         navigate("/info");
-        dispatch(closeSettingsDrawer());
+        selectMore()
+        dispatch(closeMoreDrawer());
       },
       icon: <BiInfoCircle size="24px" style={{ height: "100%" }} />,
     },
@@ -87,7 +89,7 @@ function SettingsDrawer() {
           height: 50,
         }}
         size="large"
-        onClick={() => dispatch(closeSettingsDrawer())}
+        onClick={() => dispatch(closeMoreDrawer())}
       >
         <CloseIcon fontSize="large" />
       </IconButton>
@@ -119,20 +121,10 @@ function SettingsDrawer() {
         <Typography mb={6} variant="h5">
           Hi, {user.name}
         </Typography>
-        <Typography
-          sx={{
-            width: "100%",
-            textAlign: "left",
-            color: "secondary.main",
-            fontWeight: 600,
-          }}
-          variant="h5"
-        >
-          Settings
-        </Typography>
+       
 
-        {settings.map((setting) => (
-          <ListItem sx={{ px: 0, py: 2 }} key={setting.name}>
+        {moreButtons.map((button) => (
+          <ListItem sx={{ px: 0, py: 2 }} key={button.name}>
             <ListItemButton
               disableRipple
               sx={{
@@ -146,7 +138,7 @@ function SettingsDrawer() {
                 },
               }}
               onClick={() => {
-                setting.handleClick();
+                button.handleClick();
               }}
             >
               <Box sx={{ display: "flex" }}>
@@ -156,10 +148,10 @@ function SettingsDrawer() {
                     color: theme.palette.secondary.main,
                   }}
                 >
-                  {setting.icon}
+                  {button.icon}
                 </ListItemIcon>
                 <Typography variant="h5" sx={{ paddingRight: "24px" }}>
-                  {setting.name}
+                  {button.name}
                 </Typography>
               </Box>
               <MdKeyboardArrowRight size="24px" />
@@ -170,11 +162,11 @@ function SettingsDrawer() {
     </Box>
   );
   return (
-    <Drawer color="primary" anchor="right" open={settingsDrawerOpen}>
+    <Drawer color="primary" anchor="right" open={moreDrawerOpen}>
       {list()}
       <SignOutConfirm />
     </Drawer>
   );
 }
 
-export default SettingsDrawer;
+export default MoreDrawer;

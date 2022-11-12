@@ -15,7 +15,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 // Firebase
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../app/firebaseConfig";
+import { auth } from "../firebase/firebaseConfig";
 
 // icons
 import { AiFillHome } from "react-icons/ai";

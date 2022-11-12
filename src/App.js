@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 // MUI
 import { ThemeProvider } from "@mui/material/styles";
 import { Alert, Fade, Box } from "@mui/material";
-import theme from "./app/theme";
+import theme from "./theme";
 
 // Redux
 import { login, logout, loginAsGuest } from "./redux/features/userSlice";
@@ -15,7 +15,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 
 // Firebase
 import { onAuthStateChanged } from "firebase/auth";
-import db, { auth } from "./app/firebaseConfig";
+import db, { auth } from "./firebase/firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 // My imports
@@ -141,6 +141,7 @@ function App() {
                 backgroundSize: "100% auto",
                 backgroundPosition: "top",
                 backgroundRepeat: "no-repeat",
+                backgroundAttachment: "fixed"
               }}
             >
               {" "}

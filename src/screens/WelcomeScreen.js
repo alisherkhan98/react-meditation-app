@@ -19,7 +19,7 @@ import {
 
 // firebase
 import { signInAnonymously } from "firebase/auth";
-import { auth } from "../app/firebaseConfig";
+import { auth } from "../firebase/firebaseConfig";
 
 // Router
 import { Link, useNavigate } from "react-router-dom";
@@ -27,8 +27,6 @@ import { Link, useNavigate } from "react-router-dom";
 // icons
 import { BiInfoCircle } from "react-icons/bi";
 
-// my imports
-import blob from "../assets/images/blob.png"
 // Inline Styles
 const buttonStyle = {
   padding: "1rem 2rem",

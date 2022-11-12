@@ -9,7 +9,7 @@ import {
   closeSignOutModal,
   openLoading,
   closeLoading,
-  closeSettingsDrawer,
+  closeMoreDrawer,
   openAlert,
   closeAlert,
 } from "../redux/features/modalsSlice";
@@ -17,7 +17,7 @@ import { logout } from "../redux/features/userSlice";
 
 // firebase
 import { signOut } from "firebase/auth";
-import { auth } from "../app/firebaseConfig";
+import { auth } from "../firebase/firebaseConfig";
 
 // Router
 import { useNavigate } from "react-router-dom";
@@ -38,7 +38,7 @@ function SignOutConfirm() {
   function handleSignOut() {
     dispatch(openLoading());
     dispatch(closeSignOutModal());
-    dispatch(closeSettingsDrawer());
+    dispatch(closeMoreDrawer());
     navigate("/");
 
     signOut(auth)
