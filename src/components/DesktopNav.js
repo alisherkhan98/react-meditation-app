@@ -22,9 +22,6 @@ import { GiLotus } from "react-icons/gi";
 // Router
 import { useNavigate } from "react-router-dom";
 
-// Firebase
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase/firebaseConfig";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -87,9 +84,8 @@ function DesktopNav() {
       <Container maxWidth="lg">
         <Toolbar disableGutters>
           {/* Logo */}
-          <GiLotus size="30px" style={{ marginRight: ".5rem" }} />
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             component="a"
             href="/"
@@ -103,7 +99,7 @@ function DesktopNav() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            Medit8
           </Typography>
           {/* Nav Links mapped */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" }, ml: 2 }}>
