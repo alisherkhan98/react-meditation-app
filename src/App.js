@@ -6,12 +6,22 @@ import { Alert, Fade, Box } from "@mui/material";
 import theme from "./theme";
 
 // Redux
-import { login, logout, loginAsGuest } from "./redux/features/userSlice";
+import {
+  login,
+  logout,
+  loginAsGuest,
+  setIsAnonymous,
+} from "./redux/features/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { setInitialFavorites } from "./redux/features/programsSlice";
 import { closeLoading } from "./redux/features/modalsSlice";
 // Router
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 // Firebase
 import { onAuthStateChanged } from "firebase/auth";
@@ -35,12 +45,11 @@ import InfoScreenNotLogged from "./screens/InfoScreenNotLogged";
 
 function App() {
   // fetch data from state
-  const { user } = useSelector((state) => state.user);
+  const { user, isAnonymous } = useSelector((state) => state.user);
   const { favorites } = useSelector((state) => state.programs);
   const { isLoading, alertOpen, alertMessage, alertSeverity } = useSelector(
     (state) => state.modals
   );
-  const [isAnonymous, setIsAnonymous] = React.useState(false);
 
   const dispatch = useDispatch();
 
@@ -51,12 +60,14 @@ function App() {
         console.log(newUser);
 
         if (newUser.isAnonymous === true) {
-          setIsAnonymous(true);
+          dispatch(setIsAnonymous(true));
           dispatch(loginAsGuest());
           setTimeout(() => {
             dispatch(closeLoading());
           }, 1500);
         } else {
+          dispatch(setIsAnonymous(false));
+
           // logging in with data in firestore
           getDoc(doc(db, "users", newUser.uid))
             .then((docSnap) => {
@@ -86,12 +97,12 @@ function App() {
             });
         }
       } else {
+        dispatch(setIsAnonymous(false));
+
         dispatch(logout());
         setTimeout(() => {
           dispatch(closeLoading());
         }, 1500);
-
-        console.log("logged out");
       }
     });
 
@@ -141,7 +152,7 @@ function App() {
                 backgroundSize: "100% auto",
                 backgroundPosition: "top",
                 backgroundRepeat: "no-repeat",
-                backgroundAttachment: "fixed"
+                backgroundAttachment: "fixed",
               }}
             >
               {" "}
@@ -153,7 +164,6 @@ function App() {
                 <Route path="/contact-me" element={<ContactMeScreen />} />
                 <Route path="/info" element={<InfoScreen />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
-
               </Routes>
             </Box>
           ) : (

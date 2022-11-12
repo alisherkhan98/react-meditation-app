@@ -21,7 +21,6 @@ import { IconButton, useTheme } from "@mui/material";
 // redux
 import {
   openLoading,
-  closeLoading,
   openAlert,
   closeAlert,
 } from "../redux/features/modalsSlice";

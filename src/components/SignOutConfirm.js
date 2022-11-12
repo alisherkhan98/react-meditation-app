@@ -13,10 +13,9 @@ import {
   openAlert,
   closeAlert,
 } from "../redux/features/modalsSlice";
-import { logout } from "../redux/features/userSlice";
 
 // firebase
-import { signOut } from "firebase/auth";
+import { signOut, deleteUser } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 
 // Router
@@ -32,7 +31,7 @@ function SignOutConfirm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const {user} = useSelector((state)=>state.user)
+  const { isAnonymous } = useSelector((state) => state.user);
   const { signOutModalOpen } = useSelector((state) => state.modals);
 
   function handleSignOut() {
@@ -40,12 +39,19 @@ function SignOutConfirm() {
     dispatch(closeSignOutModal());
     dispatch(closeMoreDrawer());
     navigate("/");
+    
+    // delete anonymous users to avoid memory leak
+    if (isAnonymous) {
+      deleteUser(auth.currentUser).catch((err) => {
+        console.log("error deleting user");
+      });
+    }
 
     signOut(auth)
       .catch((err) => {
         dispatch(
           openAlert({
-            message: "Ther was an error signing out. Try again",
+            message: "There was an error signing out. Try again",
             severity: "error",
           })
         );
