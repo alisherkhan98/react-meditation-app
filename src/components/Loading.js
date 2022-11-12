@@ -33,10 +33,8 @@ function Loading({open}) {
             version="1.1"
             viewBox="0 0 55 100"
             xmlSpace="preserve"
-            width="20vw"
-            style={{
-              maxWidth: "90px",
-            }}
+            width="70px"
+            
           >
             <circle cx="6" cy="50" r="6" fill="#fff" opacity="0">
               <animate
