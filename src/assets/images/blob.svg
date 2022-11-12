@@ -1,0 +1,32 @@
+
+  <svg
+    width="1000"
+    height="1000"
+    viewBox="0 0 1000 1000"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      
+      
+      <linearGradient id="linearGradientId" gradientTransform="rotate(0 0.5 0.5)">
+      <stop offset="0%"  stop-color="#f1afab" />
+			<stop offset="100%"  stop-color="#fdd58f" />
+    </linearGradient>
+      
+      
+      
+      
+      <clipPath id="shape">
+        <path fill="currentColor" d="M892,684Q794,868,599.5,891.5Q405,915,251,804.5Q97,694,94,498.5Q91,303,241,162Q391,21,595,73Q799,125,894.5,312.5Q990,500,892,684Z"></path>
+      </clipPath>
+    </defs>
+  
+    
+
+    <g  clip-path="url(#shape)">
+      <path fill="url(#linearGradientId)" d="M892,684Q794,868,599.5,891.5Q405,915,251,804.5Q97,694,94,498.5Q91,303,241,162Q391,21,595,73Q799,125,894.5,312.5Q990,500,892,684Z" />
+    </g>
+
+    
+  
+  </svg>

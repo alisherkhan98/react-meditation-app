@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 import SettingsDrawer from "./SettingsDrawer";
 
 function MobileNav() {
-  const [value, setValue] = React.useState();
+  const [value, setValue] = React.useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

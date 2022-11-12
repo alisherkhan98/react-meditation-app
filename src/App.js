@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setInitialFavorites } from "./redux/features/programsSlice";
 import { closeLoading } from "./redux/features/modalsSlice";
 // Router
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 // Firebase
 import { onAuthStateChanged } from "firebase/auth";
@@ -19,7 +19,7 @@ import db, { auth } from "./app/firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 // My imports
-import blob from "./assets/images/blob.png";
+import blob from "./assets/images/blob.svg";
 import waves from "./assets/images/waves.png";
 import Nav from "./components/Nav";
 import WelcomeScreen from "./screens/WelcomeScreen";
@@ -151,6 +151,8 @@ function App() {
                 <Route path="/favorites" element={<FavoriteScreen />} />
                 <Route path="/contact-me" element={<ContactMeScreen />} />
                 <Route path="/info" element={<InfoScreen />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+
               </Routes>
             </Box>
           ) : (
@@ -166,6 +168,7 @@ function App() {
                 <Route path="/info" element={<InfoScreenNotLogged />} />
                 <Route path="/signin" element={<SignInScreen />} />
                 <Route path="/signup" element={<SignUpScreen />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </Box>
           )
