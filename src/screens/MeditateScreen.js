@@ -29,6 +29,8 @@ function MeditateScreen() {
           py: { xs: "5rem", sm: "6rem" },
           px: 3,
           minHeight: "100vh",
+          width:"100vw",
+
           boxSizing: "border-box",
         }}
       >

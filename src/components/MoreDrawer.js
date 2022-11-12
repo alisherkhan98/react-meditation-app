@@ -34,7 +34,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import waves from "../assets/images/waves.png";
 import SignOutConfirm from "./SignOutConfirm";
 
-function MoreDrawer({selectMore}) {
+function MoreDrawer({ selectMore }) {
   const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ function MoreDrawer({selectMore}) {
       name: "Contact me",
       handleClick: () => {
         navigate("/contact-me");
-        selectMore()
+        selectMore();
         dispatch(closeMoreDrawer());
       },
       icon: <IoMailOutline size="24px" style={{ height: "100%" }} />,
@@ -55,7 +55,7 @@ function MoreDrawer({selectMore}) {
       name: "Info",
       handleClick: () => {
         navigate("/info");
-        selectMore()
+        selectMore();
         dispatch(closeMoreDrawer());
       },
       icon: <BiInfoCircle size="24px" style={{ height: "100%" }} />,
@@ -121,7 +121,6 @@ function MoreDrawer({selectMore}) {
         <Typography mb={6} variant="h5">
           Hi, {user.name}
         </Typography>
-       
 
         {moreButtons.map((button) => (
           <ListItem sx={{ px: 0, py: 2 }} key={button.name}>
@@ -162,7 +161,12 @@ function MoreDrawer({selectMore}) {
     </Box>
   );
   return (
-    <Drawer color="primary" anchor="right" open={moreDrawerOpen}>
+    <Drawer
+      color="primary"
+      anchor="right"
+      open={moreDrawerOpen}
+      transitionDuration={400}
+    >
       {list()}
       <SignOutConfirm />
     </Drawer>
