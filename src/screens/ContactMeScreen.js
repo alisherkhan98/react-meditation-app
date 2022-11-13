@@ -93,7 +93,7 @@ function ContactMeScreen() {
         }, 2000);
       })
       .then((response) => {
-        if (isAborted) return;
+        if (isAborted || !auth.currentUser.email) return;
         send(
           "service_barraza",
           "ma_autorespond",
