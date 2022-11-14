@@ -120,7 +120,6 @@ export default function PlayerModal({ currentProgram }) {
       open={playerOpen}
       onClose={() => {
         dispatch(closePlayer());
-        // audioRef.current.pause();
       }}
       closeAfterTransition
       BackdropComponent={Backdrop}
@@ -143,7 +142,6 @@ export default function PlayerModal({ currentProgram }) {
             size="large"
             onClick={() => {
               dispatch(closePlayer());
-              // audioRef.current.pause();
             }}
           >
             <CloseIcon fontSize="large" />
