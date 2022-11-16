@@ -58,12 +58,12 @@
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
-<img src="src/assets/images/screenshot1.jpeg" data-canonical-src="src/assets/images/screenshot1.jpeg" width="200" height="352" style="border-radius:5px"/>
-<img src="src/assets/images/screenshot2.jpeg" data-canonical-src="src/assets/images/screenshot2.jpeg" width="200" height="352" style="border-radius:5px"/>
-<img src="src/assets/images/screenshot3.jpeg" data-canonical-src="src/assets/images/screenshot3.jpeg" width="200" height="352" style="border-radius:5px"/>
 
-
-=
+<div style="display:flex">
+<img src="src/assets/images/screenshot1.jpeg" data-canonical-src="src/assets/images/screenshot1.jpeg" width="200" height="352" style="border-radius:5px; margin:5px"/>
+<img src="src/assets/images/screenshot2.jpeg" data-canonical-src="src/assets/images/screenshot2.jpeg" width="200" height="352" style="border-radius:5px; margin:5px"/>
+<img src="src/assets/images/screenshot3.jpeg" data-canonical-src="src/assets/images/screenshot3.jpeg" width="200" height="352" style="border-radius:5px; margin:5px"/>
+</div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -161,8 +161,6 @@ Email: asherkhan982@gmail.com
 My [LinkedIn](https://linkedin.com/in/ali-sher-khan-1331a8205)
 
 Project Link: [https://github.com/alisherkhan98/react-meditation-app](https://github.com/alisherkhan98/react-meditation-app)
-
-
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
